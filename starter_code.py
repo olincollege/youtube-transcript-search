@@ -2,13 +2,16 @@
 """
 
 from youtube_channel_transcript_api import YoutubeChannelTranscripts
-from keys import youtube_api_key
+from dotenv import load_dotenv
+import os
 
 # import csv
 
+load_dotenv()
+
 CHANNEL_NAME = 'Tapakapa'
 
-channel_getter = YoutubeChannelTranscripts(CHANNEL_NAME, youtube_api_key)
+channel_getter = YoutubeChannelTranscripts(CHANNEL_NAME, os.environ['YOUTUBE_API_KEY'])
 
 # videos_data, videos_errored = channel_getter.get_transcripts()
 
