@@ -14,3 +14,9 @@ class Channel():
             os.environ['YOUTUBE_API_KEY'])
         self.videos_errored = self.channel_getter.write_transcripts(
             f'transcript_data/{self.name}/', just_text=True)
+
+
+class Video():
+
+    def __init__(self, filepath):
+        self.path = filepath
