@@ -9,13 +9,21 @@ import os
 
 load_dotenv()
 
-CHANNEL_NAME = 'Tapakapa'
+# CHANNEL_NAME = 'CrashCourse'
 
-channel_getter = YoutubeChannelTranscripts(CHANNEL_NAME, os.environ['YOUTUBE_API_KEY'])
+# channel_getter = YoutubeChannelTranscripts(CHANNEL_NAME, os.environ['YOUTUBE_API_KEY'])
 
 # videos_data, videos_errored = channel_getter.get_transcripts()
 
-videos_errored = channel_getter.write_transcripts( \
-    f'transcript_data/{CHANNEL_NAME}/', just_text=True)
+# videos_errored = channel_getter.write_transcripts( \
+#     f'transcript_data/{CHANNEL_NAME}/', just_text=True)
 # videos_errored = channel_getter.write_transcripts(f' \
 # transcript_data/{CHANNEL_NAME}/')
+
+# ! Remove slashes from folder/filenames
+
+for filename in os.listdir("transcript_data/Tapakapa"):
+    f = os.path.join("transcript_data/Tapakapa", filename)
+
+    if os.path.isfile(f):
+        print(f)

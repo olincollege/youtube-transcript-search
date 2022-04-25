@@ -1,25 +1,35 @@
 from youtube_channel_transcript_api import YoutubeChannelTranscripts
 from dotenv import load_dotenv
 import os
+import json
 
 
 class Channel():
 
     def __init__(self, channel_name):
         self.name = channel_name
+        self.videos = {}
 
-    def pull_transcripts(self):
-        load_dotenv()
-        self.channel_getter = YoutubeChannelTranscripts(self.name,
-            os.environ['YOUTUBE_API_KEY'])
-        self.videos_errored = self.channel_getter.write_transcripts(
-            f'transcript_data/{self.name}/', just_text=True)
+        for filename in os.listdir(f"transcript_data/{self.name}"):
+            f = os.path.join(f"transcript_data/{self.name}", filename)
+
+            if os.path.isfile(f):
+                with open('transcript_data/Tapakapa/Cars_Are_Not_the_Problem.json') as video_file:
+                    video_data = json.load(video_file)
+
+                    vid_id = list(video_data.keys())[0]
+                    vid_title = video_data[vid_id]['title']
+                    transcript = video_data[vid_id]['captions']
+
+                self.videos[vid_title] = Video(vid_title, vid_id, transcript)
 
 
 class Video():
 
-    def __init__(self, filepath):
-        self.path = filepath
+    def __init__(self, title, vid_id, transcript):
+        self.title = title
+        self.id = vid_id
+        self.transcript = transcript
 
 
 class YTSearchModel():
