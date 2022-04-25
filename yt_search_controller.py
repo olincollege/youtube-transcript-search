@@ -1,5 +1,5 @@
 from yt_search_model import YTSearchModel
-from yt_search_view_terminal import YTSearchViewTerminal
+from view_terminal import YTSearchViewTerminal
 
 class YTSearchController():
 
