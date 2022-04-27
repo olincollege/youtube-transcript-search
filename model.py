@@ -1,21 +1,31 @@
-from youtube_channel_transcript_api import YoutubeChannelTranscripts
-from dotenv import load_dotenv
+"""_summary_
+"""
+
 import os
 import json
 import get_data
 
 
 class Channel():
+    """_summary_
+    """
 
     def __init__(self, channel_name):
+        """_summary_
+
+        Args:
+            channel_name (_type_): _description_
+            videos (dict):
+        """
         self.name = channel_name
         self.videos = {}
 
         for filename in os.listdir(f"transcript_data/{self.name}"):
-            f = os.path.join(f"transcript_data/{self.name}", filename)
+            file = os.path.join(f"transcript_data/{self.name}", filename)
 
-            if os.path.isfile(f):
-                with open(f'transcript_data/{self.name}/{filename}') as video_file:
+            if os.path.isfile(file):
+                with open(f'transcript_data/{self.name}/{filename}') as \
+                        video_file:
                     video_data = json.load(video_file)
 
                     vid_id = list(video_data.keys())[0]
@@ -26,25 +36,61 @@ class Channel():
 
 
 class Video():
+    """_summary_
+    """
 
     def __init__(self, title, vid_id, transcript):
+        """_summary_
+
+        Args:
+            title (_type_): _description_
+            vid_id (_type_): _description_
+            transcript (_type_): _description_
+        """
+
         self.title = title
         self.id = vid_id
         self.transcript = transcript
 
 
 class YTSearchModel():
+    """_summary_
+    """
 
     def __init__(self, channel_name, keywords):
-        self.update_search(channel_name, keywords)
+        """_summary_
+
+        Args:
+            channel_name (_type_): _description_
+            keywords (_type_): _description_
+        """
+
+        self.channel_name = channel_name
+        self.keywords = keywords
+        self.channel = Channel(self.channel_name)
 
     def update_search(self, channel_name, keywords):
+        """_summary_
+
+        Args:
+            channel_name (_type_): _description_
+            keywords (_type_): _description_
+        """
+
         self.channel_name = channel_name
         self.keywords = keywords
         self.ingest_jsons()
 
     def ingest_jsons(self):
+        """_summary_
+        """
+
         self.channel = Channel(self.channel_name)
 
     def pull_transcripts(self, channel_name):
-        get_data.videos_from_channel(channel_name)
+        """_summary_
+
+        Args:
+            channel_name (_type_): _description_
+        """
+        pass
