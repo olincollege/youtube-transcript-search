@@ -2,6 +2,7 @@ from youtube_channel_transcript_api import YoutubeChannelTranscripts
 from dotenv import load_dotenv
 import os
 import json
+import get_data
 
 
 class Channel():
@@ -14,7 +15,7 @@ class Channel():
             f = os.path.join(f"transcript_data/{self.name}", filename)
 
             if os.path.isfile(f):
-                with open('transcript_data/Tapakapa/Cars_Are_Not_the_Problem.json') as video_file:
+                with open(f'transcript_data/{self.name}/{filename}') as video_file:
                     video_data = json.load(video_file)
 
                     vid_id = list(video_data.keys())[0]
@@ -34,11 +35,16 @@ class Video():
 
 class YTSearchModel():
 
-    def __init__(self):
-        pass
+    def __init__(self, channel_name, keywords):
+        self.update_search(channel_name, keywords)
+
+    def update_search(self, channel_name, keywords):
+        self.channel_name = channel_name
+        self.keywords = keywords
+        self.ingest_jsons()
 
     def ingest_jsons(self):
-        pass
+        self.channel = Channel(self.channel_name)
 
-    def pull_transcripts(self):
-        pass
+    def pull_transcripts(self, channel_name):
+        get_data.videos_from_channel(channel_name)
