@@ -1,5 +1,6 @@
+from abc import ABC
 
-class YTSearchView():
+class View(ABC):
 
     def __init__(self):
         self.draw_interface()
@@ -8,8 +9,12 @@ class YTSearchView():
         """
         Display interface and prompt for user input
         """
+        pass
 
-        # Draw basic interface and allow user to input channel and keywords
+    def get_search_input(self):
+        """
+        Get the channel and keywords from the user.
+        """
         pass
 
     def draw_results(self, results):
@@ -22,21 +27,31 @@ class YTSearchView():
         pass
 
 
-class ViewTerminal(YTSearchView):
+class ViewTerminal(View):
     
     def __init__(self):
         self.draw_interface()
+        self.get_search_input()
     
     def draw_interface(self):
         """
-        Display interface and prompt for user input
+        Display interface
         """
-        self.chosen_channel = 'CrashCourse' #! default for now
-        # self.chosen_channel = \
-        # input("What YouTube channel would you like to search?: )
+        print("---YouTube transcript search---")
+        print("Search every video on a YouTube channel for a keyword or words.")
+
+    def get_search_input(self):
+        """
+        Get the channel and keywords from the user.
+        """
+        self.channel = 'CrashCourse' #! default for now
+
+        print(\
+        f"You are searching for videos on the YouTube channel {self.channel}")
 
         self.keywords = input("Enter comma separated keywords/ phrases: ")
 
+        print("Searching video transcripts...")
 
     def draw_results(self, results):
         # Display URL/title results of search
