@@ -8,6 +8,7 @@ class Controller():
         """
         Instantiate view and model classes.
         """
+        # create view and get user input
         self.view = ViewTerminal()
         channel, keywords = self.view.get_search_input()
         self.model = YTSearchModel(channel, self.split_keywords(keywords))

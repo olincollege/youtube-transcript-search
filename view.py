@@ -31,9 +31,6 @@ class ViewTerminal(View):
     
     def __init__(self):
         self.draw_interface()
-        self.get_search_input()
-    
-    def draw_interface(self):
         """
         Display interface
         """
@@ -44,14 +41,16 @@ class ViewTerminal(View):
         """
         Get the channel and keywords from the user.
         """
-        self.channel = 'CrashCourse' #! default for now
+        channel = 'CrashCourse' #! default for now
 
         print(\
         f"You are searching for videos on the YouTube channel {self.channel}")
 
-        self.keywords = input("Enter comma separated keywords/phrases: ")
+        keywords = input("Enter comma separated keywords/phrases: ")
 
         print("Searching video transcripts...")
+
+        return (channel, keywords)
 
     def draw_results(self, results):
         # Display URL/title results of search
@@ -62,5 +61,4 @@ class ViewTerminal(View):
         print(results)
 
     def search_again(self):
-        again = input("Do you want to search again? (y/n): ")
-        return again
+        return input("Do you want to search again? (y/n): ")
