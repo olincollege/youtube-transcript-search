@@ -20,7 +20,7 @@ jobs:
       run: |
         python -m pip install --upgrade pip
         pip install pylint
-        pip install dotenv
+        pip install python-dotenv
         pip install youtube_channel_transcript_api
     - name: Analysing the code with pylint
       run: |
