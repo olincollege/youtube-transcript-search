@@ -7,9 +7,12 @@ class Controller():
         """
         Instantiate view and model classes.
         """
+        # create view and get user input
         self.view = ViewTerminal()
+        # run search with user input
         self.model = YTSearchModel(self.view.channel, \
             self.split_keywords(self.view.keywords))
+        # send results back to view
 
     def split_keywords(self, keywords):
         """
