@@ -51,12 +51,13 @@ class Channel():
             if os.path.isfile(file):
                 with open(file) as video_file:
                     video_data = json.load(video_file)
-                    # assign video object attributes
-                    vid_id = list(video_data.keys())[0]
-                    vid_title = video_data[vid_id]['title']
-                    transcript = video_data[vid_id]['captions']
+                    if video_data is not None:
+                        # assign video object attributes
+                        vid_id = list(video_data.keys())[0]
+                        vid_title = video_data[vid_id]['title']
+                        transcript = video_data[vid_id]['captions']
 
-                self.videos[vid_title] = Video(vid_title, vid_id, transcript)
+                        self.videos[vid_title] = Video(vid_title, vid_id, transcript)
 
     def find_files(self, directory):
         """
@@ -140,5 +141,5 @@ class YTSearchModel():
             score = vid_obj.transcript.count(self.keywords[0])
             if score > 0:
                 results.append((vid_title, score))
-        results.sort(key=lambda k: k[1])
+        results.sort(key=lambda k: k[1], reverse=True)
         return results
