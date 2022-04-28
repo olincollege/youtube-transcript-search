@@ -49,7 +49,7 @@ class ViewTerminal(View):
         print(\
         f"You are searching for videos on the YouTube channel {self.channel}")
 
-        self.keywords = input("Enter comma separated keywords/ phrases: ")
+        self.keywords = input("Enter comma separated keywords/phrases: ")
 
         print("Searching video transcripts...")
 
@@ -57,4 +57,6 @@ class ViewTerminal(View):
         # Display URL/title results of search
 
         # print URL and title
+
+        print ("------------")
         print(results)

@@ -84,33 +84,36 @@ class Channel():
 class YTSearchModel():
     """_summary_
     """
-    def __init__(self, channel_name, keywords):
-        """_summary_
+    def __init__(self, current_channel_name, keywords):
+        """
+        Creates new channel object and establishes keywords.
 
         Args:
-            channel_name (_type_): _description_
+            current_channel_name (_type_): _description_
             keywords (_type_): _description_
         """
-
-        self.channel_name = channel_name
+        self.current_channel_name = current_channel_name
         self.keywords = keywords
-        self.channel = Channel(self.channel_name)
+        self.channels = {self.current_channel_name: Channel(self.current_channel_name)}
+        # search
+        self.search()
 
-    def update_search(self, channel_name, keywords):
-        """_summary_
+    def update_search(self, current_channel_name, keywords):
+        """
+        Update channel name and keywords for new search and channel. A new
+        channel object is created if it hasn't been already.
 
         Args:
-            channel_name (_type_): _description_
+            current_channel_name (_type_): _description_
             keywords (_type_): _description_
         """
-        self.channel_name = channel_name
+        self.current_channel_name = current_channel_name
         self.keywords = keywords
-        self.ingest_jsons()
 
-    def ingest_jsons(self):
-        """_summary_
-        """
-        self.channel = Channel(self.channel_name)
+        # See if requested channel already read into memory
+        if self.current_channel_name not in self.channels.keys():
+            # reads JSONs if they haven't been already
+            self.channels[self.current_channel_name] = Channel(self.current_channel_name)
 
     def get_channel_video_data(self, channel):
         """
@@ -126,3 +129,7 @@ class YTSearchModel():
         # write data to JSONs
         channel_getter.write_transcripts(\
             f'transcript_data/{channel}/', just_text=True)
+
+    def search(self):
+
+
