@@ -11,7 +11,8 @@
 
 # CHANNEL_NAME = 'CrashCourse'
 
-# channel_getter = YoutubeChannelTranscripts(CHANNEL_NAME, os.environ['YOUTUBE_API_KEY'])
+# channel_getter = YoutubeChannelTranscripts(CHANNEL_NAME, \
+#   os.environ['YOUTUBE_API_KEY'])
 
 # videos_data, videos_errored = channel_getter.get_transcripts()
 
