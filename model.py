@@ -94,7 +94,7 @@ class YTSearchModel():
     """_summary_
     """
 
-    def __init__(self, current_channel_name, keywords):
+    def __init__(self, current_channel_name, keywords, available_channels):
         """
         Creates new channel object and establishes keywords.
 
@@ -103,13 +103,17 @@ class YTSearchModel():
             keywords (_type_): _description_
         """
         self.current_channel_name = current_channel_name
+        if self.current_channel_name not in available_channels:
+            os.mkdir(f'./transcript_data/{self.current_channel_name}')
+            self.get_channel_video_data()
+
         self.keywords = keywords
         self.channels = {self.current_channel_name: Channel(
             self.current_channel_name)}
         # search
         self.results = self.search()
 
-    def update_search(self, current_channel_name, keywords):
+    def update_search(self, current_channel_name, keywords, available_channels):
         """
         Update channel name and keywords for new search and channel. A new
         channel object is created if it hasn't been already.
@@ -119,6 +123,10 @@ class YTSearchModel():
             keywords (_type_): _description_
         """
         self.current_channel_name = current_channel_name
+        if self.current_channel_name not in available_channels:
+            os.mkdir(f'./transcript_data/{self.current_channel_name}')
+            self.get_channel_video_data()
+
         self.keywords = keywords
 
         # See if requested channel already read into memory
@@ -155,6 +163,6 @@ class YTSearchModel():
                 self.channels[self.current_channel_name].videos.items():
             score = vid_obj.transcript.count(self.keywords[0])
             if score > 0:
-                results.append((vid_title, score))
+                results.append((vid_obj, score))
         results.sort(key=lambda k: k[1], reverse=True)
         return results

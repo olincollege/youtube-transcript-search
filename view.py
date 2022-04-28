@@ -9,6 +9,7 @@ class View(ABC):
     Args:
         ABC (_type_): _description_
     """
+
     def __init__(self):
         """_summary_
         """
@@ -39,26 +40,41 @@ class ViewTerminal(View):
     Args:
         View (_type_): _description_
     """
+
     def __init__(self):
         """
         Display interface
         """
         self.draw_interface()
-        print("---YouTube transcript search---")
-        print("Search every video on a YouTube channel for a keyword or words.")
+        print("\n---YouTube transcript search---")
+        print("\nSearch every video on a YouTube channel for a keyword or words.")
 
-    def get_search_input(self):
+    def get_search_input(self, available_channels):
         """
         Get the channel and keywords from the user.
         """
-        channel = 'CrashCourse'  # ! default for now
 
+        while True:
+            print("\nThe channels that we have stored are:")
+            for channel in available_channels:
+                print("- " + channel)
+
+            channel = input("\nWhich channel would you like to search? ")
+
+            if channel not in available_channels:
+                new_channel = input("\nThis channel is not downloaded, and will \
+                    take some time to download, would you like to continue? \
+                    (y/n) ")
+                if new_channel == "y":
+                    break
+            else:
+                break
         print(
-            f"You are searching for videos on the YouTube channel {channel}")
+            f"\nYou are searching for videos on the YouTube channel [{channel}]")
 
-        keywords = input("Enter comma separated keywords/phrases: ")
+        keywords = input("\nEnter comma separated keywords/phrases: ")
 
-        print("Searching video transcripts...")
+        print("\nSearching video transcripts...")
 
         return (channel, keywords)
 
@@ -68,7 +84,8 @@ class ViewTerminal(View):
         # print URL and title
 
         print("------------")
-        print(results)
+        for item in results:
+            print(f"\n{item[0]} \n- Score: {item[1]}")
 
     def search_again(self):
         """_summary_
@@ -76,4 +93,4 @@ class ViewTerminal(View):
         Returns:
             _type_: _description_
         """
-        return input("Do you want to search again? (y/n): ")
+        return input("\nDo you want to search again? (y/n): ")
