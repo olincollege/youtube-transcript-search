@@ -37,6 +37,8 @@ def videos_from_channel (channel):
     #video file name, then add the video file to the main directory and delete
     #the old subdirectory
 
+    # todo account for
+
 
 
 
