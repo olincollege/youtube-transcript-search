@@ -5,7 +5,7 @@ class Controller():
 
     def __init__(self):
         """
-        !Docstring
+        Instantiate view and model classes.
         """
         self.view = ViewTerminal()
         self.model = YTSearchModel(self.view.channel, \

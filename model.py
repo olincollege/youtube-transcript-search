@@ -44,10 +44,11 @@ class Channel():
         video_files = self.find_files(f"transcript_data/{self.channel}")
         for file in video_files:
             if os.path.isfile(file):
-                with open(f'transcript_data/{self.channel}/{filename}') as \
+                with open(f'transcript_data/{self.channel}/{file}') as \
                         video_file:
                     video_data = json.load(video_file)
 
+                    # assign video object attributes
                     vid_id = list(video_data.keys())[0]
                     vid_title = video_data[vid_id]['title']
                     transcript = video_data[vid_id]['captions']
