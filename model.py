@@ -4,6 +4,7 @@ import os
 from youtube_channel_transcript_api import YoutubeChannelTranscripts
 from dotenv import load_dotenv
 import json
+load_dotenv()
 
 class Video():
     """
@@ -123,7 +124,6 @@ class YTSearchModel():
         Args:
             channel: a string representing the Youtube Channel name
         """
-        load_dotenv()
         channel_getter = YoutubeChannelTranscripts(channel, os.environ['YOUTUBE_API_KEY'])
 
         # write data to JSONs
