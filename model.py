@@ -97,7 +97,7 @@ class YTSearchModel():
         self.keywords = keywords
         self.channels = {self.current_channel_name: Channel(self.current_channel_name)}
         # search
-        self.search()
+        self.results = self.search()
 
     def update_search(self, current_channel_name, keywords):
         """
@@ -116,6 +116,8 @@ class YTSearchModel():
             # reads JSONs if they haven't been already
             self.channels[self.current_channel_name] = Channel(self.current_channel_name)
 
+        self.results = self.search()
+
     def get_channel_video_data(self, channel):
         """
         fetch and organize relevant metadata for all videos on a youtube channel
@@ -131,5 +133,5 @@ class YTSearchModel():
             f'transcript_data/{channel}/', just_text=True)
 
     def search(self):
-
+        pass
 

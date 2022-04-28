@@ -1,6 +1,7 @@
 from model import YTSearchModel
 from view import ViewTerminal
 
+
 class Controller():
 
     def __init__(self):
@@ -8,8 +9,11 @@ class Controller():
         Instantiate view and model classes.
         """
         self.view = ViewTerminal()
-        self.model = YTSearchModel(self.view.channel, \
-            self.split_keywords(self.view.keywords))
+        channel, keywords = self.view.get_search_input()
+        self.model = YTSearchModel(channel, self.split_keywords(keywords))
+
+        self.view.draw_results(self.model.results)
+        self.run_new_search()
 
     def split_keywords(self, keywords):
         """
@@ -23,4 +27,15 @@ class Controller():
         """
         return keywords.split(", ")
 
-    #* we can have methods here that interface between model and view
+    def run_new_search(self):
+        again = self.view.search_again()
+        if again == "y":
+            channel, keywords = self.view.get_search_input()
+            self.model.update_search(channel, self.split_keywords(keywords))
+
+            self.view.draw_results(self.model.results)
+            self.run_new_search()
+        else:
+            quit()
+
+    # * we can have methods here that interface between model and view

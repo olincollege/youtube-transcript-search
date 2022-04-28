@@ -58,5 +58,9 @@ class ViewTerminal(View):
 
         # print URL and title
 
-        print ("------------")
+        print("------------")
         print(results)
+
+    def search_again(self):
+        again = input("Do you want to search again? (y/n): ")
+        return again
