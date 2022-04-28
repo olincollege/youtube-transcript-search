@@ -76,7 +76,7 @@ class Channel():
         """
         # create a list of files and subdirectories in the given directory
         files = os.listdir(directory)
-        video_files = list()
+        video_files = []
         # Iterate over all the entries
         for entry in files:
             # Create full path
