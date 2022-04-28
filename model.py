@@ -3,7 +3,6 @@
 
 import os
 import json
-import get_data
 
 
 class Channel():
@@ -93,4 +92,4 @@ class YTSearchModel():
         Args:
             channel_name (_type_): _description_
         """
-        pass
+        pass #! placeholder for the get_data
