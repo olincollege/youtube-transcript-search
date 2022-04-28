@@ -1,13 +1,13 @@
 """_summary_
 """
 
-from youtube_channel_transcript_api import YoutubeChannelTranscripts
-from dotenv import load_dotenv
-import os
+# from youtube_channel_transcript_api import YoutubeChannelTranscripts
+# from dotenv import load_dotenv
+# import os
 
 # import csv
 
-load_dotenv()
+# load_dotenv()
 
 # CHANNEL_NAME = 'CrashCourse'
 
@@ -22,8 +22,12 @@ load_dotenv()
 
 # ! Remove slashes from folder/filenames
 
-for filename in os.listdir("transcript_data/Tapakapa"):
-    f = os.path.join("transcript_data/Tapakapa", filename)
+# for filename in os.listdir("transcript_data/Tapakapa"):
+#     f = os.path.join("transcript_data/Tapakapa", filename)
 
-    if os.path.isfile(f):
-        print(f)
+#     if os.path.isfile(f):
+#         print(f)
+
+from controller import Controller
+
+Controller()

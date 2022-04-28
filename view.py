@@ -1,10 +1,11 @@
 from abc import ABC
 
+
 class View(ABC):
 
     def __init__(self):
         self.draw_interface()
-    
+
     def draw_interface(self):
         """
         Display interface and prompt for user input
@@ -28,7 +29,7 @@ class View(ABC):
 
 
 class ViewTerminal(View):
-    
+
     def __init__(self):
         self.draw_interface()
         """
@@ -41,10 +42,10 @@ class ViewTerminal(View):
         """
         Get the channel and keywords from the user.
         """
-        channel = 'CrashCourse' #! default for now
+        channel = 'CrashCourse'  # ! default for now
 
-        print(\
-        f"You are searching for videos on the YouTube channel {self.channel}")
+        print(
+            f"You are searching for videos on the YouTube channel {channel}")
 
         keywords = input("Enter comma separated keywords/phrases: ")
 

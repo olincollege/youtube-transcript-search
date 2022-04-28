@@ -1,3 +1,4 @@
+
 from model import YTSearchModel
 from view import ViewTerminal
 
@@ -29,6 +30,8 @@ class Controller():
         return keywords.split(", ")
 
     def run_new_search(self):
+        """_summary_
+        """
         again = self.view.search_again()
         if again == "y":
             channel, keywords = self.view.get_search_input()

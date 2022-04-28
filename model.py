@@ -21,6 +21,10 @@ class Video():
         self.id = vid_id
         self.transcript = transcript
 
+    def __repr__(self):
+        url = f"https://www.youtube.com/watch?v={self.id}"
+        return f"{self.title}: {url}"
+
 
 class Channel():
     """
@@ -45,10 +49,8 @@ class Channel():
         video_files = self.find_files(f"transcript_data/{self.channel}")
         for file in video_files:
             if os.path.isfile(file):
-                with open(f'transcript_data/{self.channel}/{file}') as \
-                        video_file:
+                with open(file) as video_file:
                     video_data = json.load(video_file)
-
                     # assign video object attributes
                     vid_id = list(video_data.keys())[0]
                     vid_title = video_data[vid_id]['title']
@@ -75,7 +77,7 @@ class Channel():
             fullPath = os.path.join(directory, entry)
             # If entry is a directory then get the list of files in directory
             if os.path.isdir(fullPath):
-                video_files = video_files + self.get_files(fullPath)
+                video_files = video_files + self.find_files(fullPath)
             else:
                 video_files.append(fullPath)
 
@@ -133,5 +135,10 @@ class YTSearchModel():
             f'transcript_data/{channel}/', just_text=True)
 
     def search(self):
-        pass
-
+        results = []
+        for vid_title, vid_obj in self.channels[self.current_channel_name].videos.items():
+            score = vid_obj.transcript.count(self.keywords[0])
+            if score > 0:
+                results.append((vid_title, score))
+        results.sort(key=lambda k: k[1])
+        return results
