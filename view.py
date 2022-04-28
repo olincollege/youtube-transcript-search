@@ -1,22 +1,28 @@
+"""_summary_
+"""
 from abc import ABC
 
 
 class View(ABC):
+    """_summary_
 
+    Args:
+        ABC (_type_): _description_
+    """
     def __init__(self):
+        """_summary_
+        """
         self.draw_interface()
 
     def draw_interface(self):
         """
         Display interface and prompt for user input
         """
-        pass
 
     def get_search_input(self):
         """
         Get the channel and keywords from the user.
         """
-        pass
 
     def draw_results(self, results):
         """
@@ -25,16 +31,19 @@ class View(ABC):
         Args:
             !results:
         """
-        pass
 
 
 class ViewTerminal(View):
+    """_summary_
 
+    Args:
+        View (_type_): _description_
+    """
     def __init__(self):
-        self.draw_interface()
         """
         Display interface
         """
+        self.draw_interface()
         print("---YouTube transcript search---")
         print("Search every video on a YouTube channel for a keyword or words.")
 
@@ -62,4 +71,9 @@ class ViewTerminal(View):
         print(results)
 
     def search_again(self):
+        """_summary_
+
+        Returns:
+            _type_: _description_
+        """
         return input("Do you want to search again? (y/n): ")

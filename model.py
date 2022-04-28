@@ -1,15 +1,18 @@
 """_summary_
 """
 import os
+import json
 from youtube_channel_transcript_api import YoutubeChannelTranscripts
 from dotenv import load_dotenv
-import json
+
 load_dotenv()
+
 
 class Video():
     """
     Data structure that holds the video details and transcript
     """
+
     def __init__(self, title, vid_id, transcript):
         """
         Args:
@@ -31,6 +34,7 @@ class Channel():
     Data structure that creates and stores video objects for every video on the
     channel.
     """
+
     def __init__(self, channel):
         """
         Args:
@@ -57,7 +61,8 @@ class Channel():
                         vid_title = video_data[vid_id]['title']
                         transcript = video_data[vid_id]['captions']
 
-                        self.videos[vid_title] = Video(vid_title, vid_id, transcript)
+                        self.videos[vid_title] = Video(
+                            vid_title, vid_id, transcript)
 
     def find_files(self, directory):
         """
@@ -75,12 +80,12 @@ class Channel():
         # Iterate over all the entries
         for entry in files:
             # Create full path
-            fullPath = os.path.join(directory, entry)
+            full_path = os.path.join(directory, entry)
             # If entry is a directory then get the list of files in directory
-            if os.path.isdir(fullPath):
-                video_files = video_files + self.find_files(fullPath)
+            if os.path.isdir(full_path):
+                video_files = video_files + self.find_files(full_path)
             else:
-                video_files.append(fullPath)
+                video_files.append(full_path)
 
         return video_files
 
@@ -88,6 +93,7 @@ class Channel():
 class YTSearchModel():
     """_summary_
     """
+
     def __init__(self, current_channel_name, keywords):
         """
         Creates new channel object and establishes keywords.
@@ -98,7 +104,8 @@ class YTSearchModel():
         """
         self.current_channel_name = current_channel_name
         self.keywords = keywords
-        self.channels = {self.current_channel_name: Channel(self.current_channel_name)}
+        self.channels = {self.current_channel_name: Channel(
+            self.current_channel_name)}
         # search
         self.results = self.search()
 
@@ -117,11 +124,12 @@ class YTSearchModel():
         # See if requested channel already read into memory
         if self.current_channel_name not in self.channels.keys():
             # reads JSONs if they haven't been already
-            self.channels[self.current_channel_name] = Channel(self.current_channel_name)
+            self.channels[self.current_channel_name] = Channel(
+                self.current_channel_name)
 
         self.results = self.search()
 
-    def get_channel_video_data(self, channel):
+    def get_channel_video_data(self):
         """
         fetch and organize relevant metadata for all videos on a youtube channel
         Each JSON contains the data from one video.
@@ -129,15 +137,22 @@ class YTSearchModel():
         Args:
             channel: a string representing the Youtube Channel name
         """
-        channel_getter = YoutubeChannelTranscripts(channel, os.environ['YOUTUBE_API_KEY'])
+        channel_getter = YoutubeChannelTranscripts(
+            self.current_channel_name, os.environ['YOUTUBE_API_KEY'])
 
         # write data to JSONs
-        channel_getter.write_transcripts(\
-            f'transcript_data/{channel}/', just_text=True)
+        channel_getter.write_transcripts(
+            f'transcript_data/{self.current_channel_name}/', just_text=True)
 
     def search(self):
+        """_summary_
+
+        Returns:
+            _type_: _description_
+        """
         results = []
-        for vid_title, vid_obj in self.channels[self.current_channel_name].videos.items():
+        for vid_title, vid_obj in \
+                self.channels[self.current_channel_name].videos.items():
             score = vid_obj.transcript.count(self.keywords[0])
             if score > 0:
                 results.append((vid_title, score))
