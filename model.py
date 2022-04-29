@@ -53,7 +53,7 @@ class Channel():
         video_files = self.find_files(f"transcript_data/{self.channel}")
         for file in video_files:
             if os.path.isfile(file):
-                with open(file) as video_file:
+                with open(file, encoding="utf-8") as video_file:
                     video_data = json.load(video_file)
                     if video_data is not None:
                         # assign video object attributes
@@ -76,7 +76,7 @@ class Channel():
         """
         # create a list of files and subdirectories in the given directory
         files = os.listdir(directory)
-        video_files = list()
+        video_files = []
         # Iterate over all the entries
         for entry in files:
             # Create full path

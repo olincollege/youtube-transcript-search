@@ -45,6 +45,7 @@ class ViewTerminal(View):
         """
         Display interface
         """
+        self.repeat = ""
         self.draw_interface()
         print("\n---YouTube transcript search---")
         print("\nSearch every video on a YouTube channel for a keyword or words.")
@@ -93,4 +94,5 @@ class ViewTerminal(View):
         Returns:
             _type_: _description_
         """
-        return input("\nDo you want to search again? (y/n): ")
+        self.repeat = input("Do you want to search again? (y/n): ")
+        return self.repeat
