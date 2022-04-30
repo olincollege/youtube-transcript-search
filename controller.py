@@ -40,8 +40,7 @@ class Controller():
         again = self.view.search_again()
         # if user wants to search again run the whole process over again
         if again == "y":
-            # list of channels already downloaded
-            self.available_channels = next(os.walk('./transcript_data'))[1]
+            self.update_available_channels()
 
             # get user input
             channel, keywords = \
@@ -56,3 +55,9 @@ class Controller():
             self.run_new_search()
         else:
             sys.exit()
+
+    def update_available_channels(self):
+        """_summary_
+        """        
+        # list of channels already downloaded
+        self.available_channels = next(os.walk('./transcript_data'))[1]
