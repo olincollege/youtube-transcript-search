@@ -1,12 +1,12 @@
-"""_summary_
+"""
+Model for YouTube transcript search.
 """
 import os
 import json
 from youtube_channel_transcript_api import YoutubeChannelTranscripts
 from dotenv import load_dotenv
-
+# load the API environment
 load_dotenv()
-
 
 class Video():
     """
@@ -25,6 +25,9 @@ class Video():
         self.transcript = transcript
 
     def __repr__(self):
+        """
+        Return video title and URL.
+        """
         url = f"https://www.youtube.com/watch?v={self.id}"
         return f"{self.title}: {url}"
 
@@ -37,7 +40,7 @@ class Channel():
 
     def __init__(self, channel):
         """
-        Args:
+        Attributes:
             channel: a string representing the channel name.
             videos: a dictionary representing each video on the channel
             callable by title.
@@ -60,7 +63,7 @@ class Channel():
                         vid_id = list(video_data.keys())[0]
                         vid_title = video_data[vid_id]['title']
                         transcript = video_data[vid_id]['captions']
-
+                        # create video object, assign attributes, add to dict
                         self.videos[vid_title] = Video(
                             vid_title, vid_id, transcript)
 
@@ -91,7 +94,8 @@ class Channel():
 
 
 class YTSearchModel():
-    """_summary_
+    """
+    Searches YouTube channel transcripts for keywords.
     """
 
     def __init__(self, current_channel_name, keywords, available_channels):
@@ -102,11 +106,14 @@ class YTSearchModel():
             current_channel_name (_type_): _description_
             keywords (_type_): _description_
         """
+        # set the channel being searched.
         self.current_channel_name = current_channel_name
+        # if the channel data isn't already downloaded locally, download it.
         if self.current_channel_name not in available_channels:
             os.mkdir(f'./transcript_data/{self.current_channel_name}')
             self.get_channel_video_data()
 
+        # set keywords and update the dictionary of available channels.
         self.keywords = keywords
         self.channels = {self.current_channel_name: Channel(
             self.current_channel_name)}
@@ -122,14 +129,17 @@ class YTSearchModel():
             current_channel_name (_type_): _description_
             keywords (_type_): _description_
         """
+        # update the channel being searched.
         self.current_channel_name = current_channel_name
+        # if the channel data isn't already downloaded locally, download it.
         if self.current_channel_name not in available_channels:
             os.mkdir(f'./transcript_data/{self.current_channel_name}')
             self.get_channel_video_data()
 
+        # update keywords
         self.keywords = keywords
 
-        # See if requested channel already read into memory
+        # See if the requested channel is already read into memory
         if self.current_channel_name not in self.channels.keys():
             # reads JSONs if they haven't been already
             self.channels[self.current_channel_name] = Channel(
@@ -139,12 +149,12 @@ class YTSearchModel():
 
     def get_channel_video_data(self):
         """
-        fetch and organize relevant metadata for all videos on a youtube channel
-        Each JSON contains the data from one video.
+        Fetch and organize relevant metadata for all videos on a youtube
+        channel.
 
-        Args:
-            channel: a string representing the Youtube Channel name
+        Each JSON contains the data from one video.
         """
+        # call API
         channel_getter = YoutubeChannelTranscripts(
             self.current_channel_name, os.environ['YOUTUBE_API_KEY'])
 
@@ -153,10 +163,11 @@ class YTSearchModel():
             f'transcript_data/{self.current_channel_name}/', just_text=True)
 
     def search(self):
-        """_summary_
+        """
+        Search every video transcript for keywords.
 
         Returns:
-            _type_: _description_
+            results: a list of YouTube videos in order of relevance.
         """
         results = []
         for vid_title, vid_obj in \
@@ -164,5 +175,6 @@ class YTSearchModel():
             score = vid_obj.transcript.count(self.keywords[0])
             if score > 0:
                 results.append((vid_obj, score))
+        # sort list with greatest scores first
         results.sort(key=lambda k: k[1], reverse=True)
         return results
