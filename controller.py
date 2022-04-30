@@ -58,6 +58,6 @@ class Controller():
 
     def update_available_channels(self):
         """_summary_
-        """        
+        """
         # list of channels already downloaded
         self.available_channels = next(os.walk('./transcript_data'))[1]
