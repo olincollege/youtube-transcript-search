@@ -20,7 +20,7 @@ class View(ABC):
         Display interface and prompt for user input
         """
 
-    def get_search_input(self):
+    def get_search_input(self, available_channels):
         """
         Get the channel and keywords from the user.
         """
@@ -37,8 +37,8 @@ class View(ABC):
 class ViewTerminal(View):
     """_summary_
 
-    Args:
-        View (_type_): _description_
+    Attributes:
+        repeat (_type_): _description_
     """
 
     def __init__(self):
@@ -48,7 +48,8 @@ class ViewTerminal(View):
         self.repeat = ""
         self.draw_interface()
         print("\n---YouTube transcript search---")
-        print("\nSearch every video on a YouTube channel for a keyword or words.")
+        print("\nSearch every video on a YouTube channel for a " +\
+            "keyword or words.")
 
     def get_search_input(self, available_channels):
         """
@@ -63,15 +64,15 @@ class ViewTerminal(View):
             channel = input("\nWhich channel would you like to search? ")
 
             if channel not in available_channels:
-                new_channel = input("\nThis channel is not downloaded, and will \
-                    take some time to download, would you like to continue? \
-                    (y/n) ")
+                new_channel = input("\nThis channel is not downloaded, and \
+                    will take some time to download, would you like to \
+                    continue? (y/n) ")
                 if new_channel == "y":
                     break
             else:
                 break
-        print(
-            f"\nYou are searching for videos on the YouTube channel [{channel}]")
+        print("\mYou are searching for videos on the YouTube channel " +\
+                f"[{channel}]")
 
         keywords = input("\nEnter comma separated keywords/phrases: ")
 
@@ -80,6 +81,11 @@ class ViewTerminal(View):
         return (channel, keywords)
 
     def draw_results(self, results):
+        """_summary_
+
+        Args:
+            results (_type_): _description_
+        """
         # Display URL/title results of search
 
         # print URL and title
@@ -89,10 +95,10 @@ class ViewTerminal(View):
             print(f"\n{item[0]} \n- Score: {item[1]}")
 
     def search_again(self):
-        """_summary_
+        """Asks user whether they want to run another search.
 
         Returns:
-            _type_: _description_
+            str: string representing either "y" or "n"
         """
         self.repeat = input("Do you want to search again? (y/n): ")
         return self.repeat
