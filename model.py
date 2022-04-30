@@ -17,18 +17,27 @@ class Video():
         """
         Args:
             title: a string representing the title of the video
-            vid_id: a string representing the video id
+            _vid_id: a string representing the video id
             transcript: a string representing the full transcript of the video
         """
         self.title = title
-        self.id = vid_id
+        self._vid_id = vid_id
         self.transcript = transcript
+
+    @property
+    def vid_id(self):
+        """_summary_
+
+        Returns:
+            _type_: _description_
+        """
+        return self._vid_id
 
     def __repr__(self):
         """
         Return video title and URL.
         """
-        url = f"https://www.youtube.com/watch?v={self.id}"
+        url = f"https://www.youtube.com/watch?v={self.vid_id}"
         return f"{self.title}: {url}"
 
 
@@ -140,7 +149,7 @@ class YTSearchModel():
         self.keywords = keywords
 
         # See if the requested channel is already read into memory
-        if self.current_channel_name not in self.channels.keys():
+        if self.current_channel_name not in self.channels:
             # reads JSONs if they haven't been already
             self.channels[self.current_channel_name] = Channel(
                 self.current_channel_name)
@@ -170,7 +179,7 @@ class YTSearchModel():
             results: a list of YouTube videos in order of relevance.
         """
         results = []
-        for vid_title, vid_obj in \
+        for _, vid_obj in \
                 self.channels[self.current_channel_name].videos.items():
             score = vid_obj.transcript.count(self.keywords[0])
             if score > 0:

@@ -39,8 +39,8 @@ class ViewTerminal(View):
         """
         Display interface
         """
+        super().__init__()
         self.repeat = ""
-        self.draw_interface()
         print("\n---YouTube transcript search---")
         print("\nSearch every video on a YouTube channel for a " +\
             "keyword or words.")
