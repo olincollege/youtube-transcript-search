@@ -43,7 +43,7 @@ class ViewTerminal(View):
         super().__init__()
         self.repeat = ""
         print("\n---YouTube transcript search---")
-        print("\nSearch every video on a YouTube channel for a " +\
+        print("Search every video on a YouTube channel for a " +\
             "keyword or words.")
 
     def get_search_input(self, available_channels):
@@ -109,14 +109,14 @@ class ViewTerminal(View):
 
         Returns: a string representing new channel to be downloaded
         """
-        new_channel = input("You don't have any channel data locally"
+        new_channel = input("\nYou don't have any channel data locally"
             " downloaded. Enter the (exact) name of a YouTube channel you"
             " would like to search: ")
 
         keywords = input("\nEnter comma separated keywords/phrases to search"
                         " for: ")
 
-        print(f"Downloading transcript data for the channel {new_channel},"
+        print(f"\nDownloading transcript data for the channel {new_channel},"
         " you won't have to do this again for this channel, but it might take"
         " a few minutes...")
 
