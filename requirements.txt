@@ -1,0 +1,2 @@
+youtube-channel-transcript-api
+python-dotenv
