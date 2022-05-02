@@ -14,31 +14,17 @@ class Controller():
 
     def __init__(self):
         """
-        Instantiate the View and Model classes.
-
-        The first time the user runs the program (they have no local transcript
-        data) things are handled slightly differently.
+        Instantiate the View and Model classes and run the initial search with
+        user input.
         """
-        # if transcript data folder doesn't exist or if the folder is empty (if
-        # it's the first time the user has run the program)
-        # if os.path.isdir('./transcript_data') is False \
-        # or len(os.listdir('./transcript_data')) == 0:
-
+        # find channels that are already downloaded
         self.available_channels = []
-
         self.update_available_channels()
 
+        # instantiate view
         self.view = ViewTerminal()
-            # the prompt to get the channel and keywords is slightly different
-            # in this case
-        # channel,keywords = self.view.get_first_channel()
 
-        # else: # channel data is available locally (usual case)
-        #     # list of channels already downloaded
-        #     self.available_channels = next(os.walk('./transcript_data'))[1]
-        #     # Instantiate View
-        #     self.view = ViewTerminal()
-        #     # get user input
+        # get user input for search
         channel, keywords = self.view.get_search_input(self.available_channels)
 
         # run search

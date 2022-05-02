@@ -43,8 +43,8 @@ class ViewTerminal(View):
         super().__init__()
         self.repeat = ""
         print("\n---YouTube transcript search---")
-        print("Search every video on a YouTube channel for a " +
-              "keyword or words.")
+        print("Search every video on a YouTube channel"
+            " for a keyword or words.")
 
     def get_search_input(self, available_channels):
         """
@@ -54,33 +54,50 @@ class ViewTerminal(View):
             available_channels: list of channels that have already been
             downloaded locally by the user.
         """
+        # set default search message
+        search_message = "Searching video transcripts..."
         while True:
-            print("\nThe channels that are currently available to search are:")
-            for channel in available_channels:
-                print(" | " + channel)
-
-            channel = input("\nWhich channel would you like to search? ")
-
-            # if the channel is not already downloaded locally, confirm that the
-            # user would like to download it.
-            if channel not in available_channels:
-                new_channel = input("\nThis channel is not downloaded, and"
-                                    " will take some time to download, would you like to"
-                                    " continue? (y/n): ")
-                if new_channel == "y":
-                    break
-            else:
+            # if there are no available channels, prompt user to download one
+            if len(available_channels) == 0:
+                channel = input("\nYou don't have any channel data locally"
+                            " downloaded. Enter the exact name of the YouTube"
+                            " channel you would like to search: ")
+                # update search message to reflect increased loading time
+                search_message = ("Downloading transcript data and searching"
+                " video transcripts. This may take a few minutes...")
                 break
-        print("\nYou are searching for videos on the YouTube channel " +
-              f"[{channel}]")
 
-        keywords = input("\nEnter comma separated keywords/phrases to search"
-                         " for: ")
+            # if there are already local channels
+            else:
+                print("\nThe channels that are currently available to search are:")
+                for channel in available_channels:
+                    print(" | " + channel)
 
-        # indicate search is in progress
-        print("\nSearching video transcripts...")
+                channel = input("\nWhich channel would you like to search? ")\
+                    .strip() # remove unwanted spaces
 
-        return (channel, keywords)
+                # if the channel is not already downloaded locally, confirm that
+                # the user would like to download it.
+                if channel not in available_channels:
+                    new_channel = input("\nThis channel will need to be " "locally downloaded and the search will take longer than " "usual, would you like to continue? (y/n): ")
+                    if new_channel == "y":
+                    # update search message to reflect increased loading time
+                        search_message = ("Downloading transcript data and"
+                        " searching video transcripts. This may take a few"
+                        " minutes...")
+                        break
+                else:
+                    break # end the program
+
+        keywords = ""
+        while keywords == "":
+            # get raw user search term input
+            keywords = input("\nEnter comma separated keywords/phrases to"
+                        f" search for on the YouTube channel {channel}: ")
+
+        # indicate search (and possibly download) is in progress
+        print("\n" + search_message)
+        return (channel, keywords.strip())
 
     def draw_results(self, results):
         """
@@ -91,7 +108,8 @@ class ViewTerminal(View):
         """
         print("------------")
         for index, item in enumerate(results):
-            if index >= 5: break
+            if index >= 5:
+                break
             print(f"\n{item[0]} \n- Score: {item[1]} \n"
                 f"- Includes {item[2]}/{item[3]} keywords")
 
@@ -104,22 +122,3 @@ class ViewTerminal(View):
         """
         self.repeat = input("Do you want to search again? (y/n): ")
         return self.repeat
-
-    def get_first_channel(self):
-        """
-        Prompt the user to pick a channel and explain the process.
-
-        Returns: a string representing new channel to be downloaded
-        """
-        new_channel = input("\nYou don't have any channel data locally"
-                            " downloaded. Enter the (exact) name of a YouTube channel you"
-                            " would like to search: ")
-
-        keywords = input("\nEnter comma separated keywords/phrases to search"
-                         " for: ")
-
-        print(f"\nDownloading transcript data for the channel {new_channel},"
-              " you won't have to do this again for this channel, but it might take"
-              " a few minutes...")
-
-        return new_channel, keywords
