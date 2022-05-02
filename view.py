@@ -73,6 +73,9 @@ class ViewTerminal(View):
                 for channel in available_channels:
                     print(" | " + channel)
 
+                print("\n(You can also add a new channel by entering the exact"
+                " channel name below)")
+
                 channel = input("\nWhich channel would you like to search? ")\
                     .strip() # remove unwanted spaces
 
@@ -107,11 +110,18 @@ class ViewTerminal(View):
             results: a list of YouTube videos in order of relevance.
         """
         print("------------")
-        for index, item in enumerate(results):
-            if index >= 5:
-                break
-            print(f"\n{item[0]} \n- Score: {item[1]} \n"
-                f"- Includes {item[2]}/{item[3]} keywords")
+        # indicate if the search returned no results
+        if len(results) == 0:
+            print("\nNo results found.\n")
+        # display the top search results
+        else:
+            print("Results are scored by the total number of times keywords/"
+            " phrases appear in the transcript. The top scoring videos are: ")
+            for index, item in enumerate(results):
+                if index >= 5:
+                    break
+                print(f"\n{item[0]} \n- Score: {item[1]} \n"
+                    f"- Includes {item[2]}/{item[3]} keywords")
 
     def search_again(self):
         """
