@@ -26,10 +26,8 @@ class Video():
 
     @property
     def vid_id(self):
-        """_summary_
-
-        Returns:
-            _type_: _description_
+        """
+        A read-only string representing the video id.
         """
         return self._vid_id
 
