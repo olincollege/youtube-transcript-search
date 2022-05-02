@@ -26,10 +26,8 @@ class Video():
 
     @property
     def vid_id(self):
-        """_summary_
-
-        Returns:
-            _type_: _description_
+        """
+        create read-only attribute vid_id
         """
         return self._vid_id
 
@@ -107,41 +105,59 @@ class YTSearchModel():
     Searches YouTube channel transcripts for keywords.
     """
 
-    def __init__(self, current_channel_name, keywords, available_channels):
+    def __init__(self, current_channel_name, keywords):
         """
         Creates new channel object and establishes keywords.
 
         Args:
-            current_channel_name (_type_): _description_
-            keywords (_type_): _description_
+            current_channel_name: string representing the channel to be searched
+            keywords: list of strings representing keywords
         """
         # set the channel being searched.
         self.current_channel_name = current_channel_name
-        # if the channel data isn't already downloaded locally, download it.
-        if self.current_channel_name not in available_channels:
+        # set keywords
+        self.keywords = keywords
+
+        # if there is no existing data, create it
+        if os.path.isfile('./transcript_data') is False\
+        or len(os.listdir('./transcript_data')) == 0:
+            os.makedirs(f'./transcript_data/{self.current_channel_name}/')
+            self.get_channel_video_data()
+            # update the dictionary of available channels.
+            self.channels = {self.current_channel_name: Channel(self.\
+                current_channel_name)}
+
+        # if the channel data isn't already in the existing data, download it.
+        elif self.current_channel_name not in self.available_channels:
+            # make directory for new channel
             os.mkdir(f'./transcript_data/{self.current_channel_name}')
             self.get_channel_video_data()
 
-        # set keywords and update the dictionary of available channels.
-        self.keywords = keywords
-        self.channels = {self.current_channel_name: Channel(
-            self.current_channel_name)}
+            # update the dictionary of available channels.
+            self.channels = {self.current_channel_name: Channel(
+                self.current_channel_name)}
+
         # search
         self.results = self.search()
 
-    def update_search(self, current_channel_name, keywords, available_channels):
+    def update_search(self, current_channel_name, keywords):
         """
         Update channel name and keywords for new search and channel. A new
         channel object is created if it hasn't been already.
 
         Args:
-            current_channel_name (_type_): _description_
-            keywords (_type_): _description_
+            current_channel_name: string representing the channel to be
+            searched.
+            keywords: list of strings representing search terms.
+            available_channels: dictionary representing what channels are
+            already locally downloaded.
         """
+        self.update_available_channels()
+
         # update the channel being searched.
         self.current_channel_name = current_channel_name
         # if the channel data isn't already downloaded locally, download it.
-        if self.current_channel_name not in available_channels:
+        if self.current_channel_name not in self.available_channels:
             os.mkdir(f'./transcript_data/{self.current_channel_name}')
             self.get_channel_video_data()
 
@@ -156,10 +172,17 @@ class YTSearchModel():
 
         self.results = self.search()
 
+    def update_available_channels(self):
+        """
+        Update record of channels stored locally by the user.
+        """
+        # list of channels already downloaded
+        self.available_channels = next(os.walk('./transcript_data'))[1]
+
     def get_channel_video_data(self):
         """
         Fetch and organize relevant metadata for all videos on a youtube
-        channel.
+        channel from the API.
 
         Each JSON contains the data from one video.
         """

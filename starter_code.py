@@ -21,7 +21,9 @@
 # videos_errored = channel_getter.write_transcripts(f' \
 # transcript_data/{CHANNEL_NAME}/')
 
+# import os
+# path = 'test2'
+# os.makedirs(f'./test/{path}/')
 
 from controller import Controller
-
 Controller()
