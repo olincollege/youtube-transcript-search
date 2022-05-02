@@ -14,21 +14,35 @@ class Controller():
 
     def __init__(self):
         """
-        Instantiate view and model classes.
+        Instantiate the View and Model classes.
+
+        The first time the user runs the program (they have no local transcript
+        data) things are handled slightly differently.
         """
+        # if transcript data folder doesn't exist or if the folder is empty (if
+        # it's the first time the user has run the program)
+        if os.path.isfile('/transcript_data') is False \
+        or len(os.listdir('/transcript_data')) == 0:
 
-        # list of channels already downloaded
-        self.available_channels = next(os.walk('./transcript_data'))[1]
+            self.view = ViewTerminal()
+            # the prompt to get the channel and keywords is slightly different
+            # in this case
+            channel,keywords = self.view.get_first_channel()
 
-        # create view and get user input
-        self.view = ViewTerminal()
-        channel, keywords = self.view.get_search_input(self.available_channels)
+        else: # channel data is available locally (usual case)
+            # list of channels already downloaded
+            self.available_channels = next(os.walk('./transcript_data'))[1]
+            # Instantiate View
+            self.view = ViewTerminal()
+            # get user input
+            channel, keywords = self.view.get_search_input(self.available_channels)
+
         # run search
-        self.model = YTSearchModel(channel, keywords.split(", "),
-                                   self.available_channels)
+        self.model = YTSearchModel(channel, keywords.split(", "))
 
         # display results to user
         self.view.draw_results(self.model.results)
+
         # ask the user if they want to run another search
         self.run_new_search()
 
@@ -40,14 +54,14 @@ class Controller():
         again = self.view.search_again()
         # if user wants to search again run the whole process over again
         if again == "y":
-            self.update_available_channels()
+            # update record of available channels
+            self.available_channels = next(os.walk('./transcript_data'))[1]
 
             # get user input
             channel, keywords = \
                 self.view.get_search_input(self.available_channels)
             # update model and run search
-            self.model.update_search(channel, keywords.split(", "),
-                                     self.available_channels)
+            self.model.update_search(channel, keywords.split(", "))
 
             # display results
             self.view.draw_results(self.model.results)
@@ -55,9 +69,3 @@ class Controller():
             self.run_new_search()
         else:
             sys.exit()
-
-    def update_available_channels(self):
-        """_summary_
-        """
-        # list of channels already downloaded
-        self.available_channels = next(os.walk('./transcript_data'))[1]

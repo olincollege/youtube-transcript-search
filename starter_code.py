@@ -1,4 +1,5 @@
-"""_summary_
+"""
+Testing code
 """
 
 # from youtube_channel_transcript_api import YoutubeChannelTranscripts
@@ -21,7 +22,9 @@
 # videos_errored = channel_getter.write_transcripts(f' \
 # transcript_data/{CHANNEL_NAME}/')
 
+# import os
+# path = 'test2'
+# os.makedirs(f'./test/{path}/')
 
 from controller import Controller
-
 Controller()
