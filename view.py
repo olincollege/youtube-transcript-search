@@ -69,7 +69,8 @@ class ViewTerminal(View):
 
             # if there are already local channels
             else:
-                print("\nThe channels that are currently available to search are:")
+                print("\nThe channels that are currently available to search"
+                " are:")
                 for channel in available_channels:
                     print(" | " + channel)
 
@@ -84,7 +85,9 @@ class ViewTerminal(View):
                 if channel not in available_channels:
                     input_val = ""
                     while input_val != "y" and input_val != "n":
-                        input_val = input("\nThis channel will need to be " "locally downloaded and the search will take longer than " "usual, would you like to continue? (y/n): ")
+                        input_val = input("\nThis channel will need to be "
+                        "locally downloaded and the search will take longer"
+                        " than usual, would you like to continue? (y/n): ")
 
                     if input_val == "y": # yes
                     # update search message to reflect increased loading time
@@ -137,3 +140,19 @@ class ViewTerminal(View):
         while self.repeat != "y" and self.repeat != "n":
             self.repeat = input("Do you want to search again? (y/n): ")
         return self.repeat
+
+    def error(self, error_code=0):
+        """
+        Indicate to the user that an error has occurred.
+
+        Args:
+            error_code: an int (default of 0) indicates what the error is
+        """
+        # default error message
+        if error_code == 0:
+            print("\n------------\nERROR\n------------")
+
+        # channel fails to download
+        if error_code == 1:
+            print("\n------------\nERROR DOWNLOADING TRANSCRIPTS. CHANNEL NAME" " MAY BE INCORRECT.\n\n(Hint: make sure the channel is spelled"
+            " correctly and spaces/capital letters are right)\n------------")

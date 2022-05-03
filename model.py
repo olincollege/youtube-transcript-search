@@ -174,13 +174,17 @@ class YTSearchModel():
 
         Each JSON contains the data from one video.
         """
-        # call API
-        channel_getter = YoutubeChannelTranscripts(
-            self.current_channel_name, os.environ['YOUTUBE_API_KEY'])
+        try:
+            # call API
+            channel_getter = YoutubeChannelTranscripts(
+                self.current_channel_name, os.environ['YOUTUBE_API_KEY'])
 
-        # write data to JSONs
-        channel_getter.write_transcripts(
-            f'./transcript_data/{self.current_channel_name}/', just_text=True)
+            # write data to JSONs
+            channel_getter.write_transcripts(
+                f'./transcript_data/{self.current_channel_name}/', just_text=True)
+        except:
+            # delete the directory if it was created
+            os.rmdir(f'./transcript_data/{self.current_channel_name}/')
 
     def search(self):
         """

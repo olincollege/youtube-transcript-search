@@ -27,8 +27,26 @@ class Controller():
         # get user input for search
         channel, keywords = self.view.get_search_input(self.available_channels)
 
+        def run_init_search(channel, keywords):
+            """
+            Run initial search where model class is instantiated.
+
+            Recursive for error handeling.
+            """
+            try:
+                self.model = YTSearchModel(channel, keywords.split(", "), self.available_channels)
+                # if it works, return the successful title and keywords
+            except:
+                # alert user to error
+                self.view.error(1)
+                # ask for new input
+                channel_new, keywords_new = self.view.get_search_input(self.\
+                    available_channels)
+                # try again
+                run_init_search(channel_new, keywords_new)
+
         # run search
-        self.model = YTSearchModel(channel, keywords.split(", "), self.available_channels)
+        run_init_search(channel,keywords)
 
         # display results to user
         self.view.draw_results(self.model.results)
@@ -50,8 +68,27 @@ class Controller():
             # get user input
             channel, keywords = \
                 self.view.get_search_input(self.available_channels)
-            # update model and run search
-            self.model.update_search(channel, keywords.split(", "), self.available_channels)
+
+            # define recursive search function
+            def update_model(channel, keywords):
+                """
+                Recursive error handeling
+                """
+                try:
+                    # update model and run search
+                    self.model.update_search(channel, keywords.split(", "), self.available_channels)
+
+                except:
+                    # alert user to error
+                    self.view.error(1)
+                    # ask for new input
+                    channel_new, keywords_new = \
+                    self.view.get_search_input(self.available_channels)
+                    # recursively run search again
+                    update_model(channel_new, keywords_new)
+
+            # run search
+            update_model(channel, keywords)
 
             # display results
             self.view.draw_results(self.model.results)
