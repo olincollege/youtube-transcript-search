@@ -4,8 +4,7 @@ Controller for YouTube transcript search.
 import sys
 import os
 from model import YTSearchModel
-from view import ViewTerminal
-
+from view import ViewTerminal, error
 
 class Controller():
     """
@@ -42,7 +41,7 @@ class Controller():
                 # if it works, return the successful title and keywords
             except:
                 # alert user to error
-                self.view.error(1)
+                error(1)
                 # ask for new input
                 channel_new, keywords_new = self.view.get_search_input(self.\
                     available_channels)
@@ -89,7 +88,7 @@ class Controller():
 
                 except:
                     # alert user to error
-                    self.view.error(1)
+                    error(1)
                     # ask for new input
                     channel_new, keywords_new = \
                     self.view.get_search_input(self.available_channels)

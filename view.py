@@ -141,19 +141,19 @@ class ViewTerminal(View):
             self.repeat = input("Do you want to search again? (y/n): ")
         return self.repeat
 
-    def error(self, error_code=0):
-        """
-        Indicate to the user that an error has occurred.
+def error(error_code=0):
+    """
+    Indicate to the user that an error has occurred.
 
-        Args:
-            error_code: an int (default of 0) indicates what the error is
-        """
-        # default error message
-        if error_code == 0:
-            print("\n------------\nERROR\n------------")
+    Args:
+        error_code: an int (default of 0) indicates what the error is
+    """
+    # default error message
+    if error_code == 0:
+        print("\n------------\nERROR\n------------")
 
-        # channel fails to download
-        if error_code == 1:
-            print("\n------------\nERROR DOWNLOADING TRANSCRIPTS. CHANNEL NAME"
-            " MAY BE INCORRECT.\n\n(Hint: make sure the channel is spelled"
-            " correctly and spaces/capital letters are right)\n------------")
+    # channel fails to download
+    if error_code == 1:
+        print("\n------------\nERROR DOWNLOADING TRANSCRIPTS. CHANNEL NAME"
+        " MAY BE INCORRECT.\n\n(Hint: make sure the channel is spelled"
+        " correctly and spaces/capital letters are right)\n------------")
