@@ -112,6 +112,8 @@ class YTSearchModel():
         Args:
             current_channel_name: string representing the channel to be searched
             keywords: list of strings representing keywords
+            available_channels: dictionary representing what channels are
+            already locally downloaded.
         """
         # set the channel being searched.
         self.current_channel_name = current_channel_name
