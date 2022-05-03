@@ -1,13 +1,29 @@
 # YouTube Transcript Search
-Search the transcripts of any channel on YouTube for keywords or phrases.
+Search the transcripts of any channel on YouTube for keywords or phrases in your terminal with python.
 
-## Dependencies
+## Built With
+- [youtube-channel-transcript-api](https://pypi.org/project/youtube-transcript-api/)
+- [python-dotenv](https://pypi.org/project/python-dotenv/)
 
-The packages used in this project are `youtube-channel-transcript-api` and `python-dotenv` which can be installed by running the following:
+## Getting Started
+
+### Clone the Repo
+Run the following to clone this repo:
+```bash
+git clone https://github.com/olincollege/youtube-transcript-search
+```
+
+### Install Dependencies
+Install the packages used in this project by running the following:
 
 ```bash
 pip install -r requirements.txt
 ```
+
+### API Key
+
+ 1. Get a free API key at [WEBSITE]
+ 2. HOW TO ADD KEY TO CODE
 
 ## Usage
 
@@ -20,7 +36,7 @@ To search, enter comma separated keywords or phrases. These strings (with variou
 
 Results are scored based on the number of occurrences of all keywords within a video. Only the top 5 videos are displayed by default, however this can be easily modified in the `draw_results` method under the `ViewTerminal` class.
 
-#### the transcript_data directory
+### the transcript_data directory
 When a new channel's transcript data is downloaded, a new directory with the channel name is created under `transcript_data`. To delete a channel from local memory, simply delete the channel's directory. Do not delete `transcript_data` itself. 
 
 ## License
