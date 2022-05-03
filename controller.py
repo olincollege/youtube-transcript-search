@@ -30,8 +30,11 @@ class Controller():
         def run_init_search(channel, keywords):
             """
             Run initial search where model class is instantiated.
-
             Recursive for error handeling.
+
+            Args:
+                channel: a string of raw user input representing channel
+                keywords: a string of raw user input representing keywords
             """
             try:
                 self.model = YTSearchModel(channel, keywords.split(", "),\
@@ -74,6 +77,10 @@ class Controller():
             def update_model(channel, keywords):
                 """
                 Recursive error handeling
+
+                Args:
+                channel: a string of raw user input representing channel
+                keywords: a string of raw user input representing keywords
                 """
                 try:
                     # update model and run search
@@ -101,7 +108,7 @@ class Controller():
 
     def update_available_channels(self):
         """
-        Update record of channels stored locally by the user.
+        Update the record of channels stored locally by the user.
         """
         # list of channels already downloaded
         if len(os.listdir('./transcript_data')) != 0:
