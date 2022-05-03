@@ -181,7 +181,8 @@ class YTSearchModel():
 
             # write data to JSONs
             channel_getter.write_transcripts(
-                f'./transcript_data/{self.current_channel_name}/', just_text=True)
+                f'./transcript_data/{self.current_channel_name}/',\
+                    just_text=True)
         except:
             # delete the directory if it was created
             os.rmdir(f'./transcript_data/{self.current_channel_name}/')
@@ -191,20 +192,33 @@ class YTSearchModel():
         Search every video transcript for keywords.
 
         Returns:
-            results: a list of YouTube videos in order of relevance.
+            results: a list of tuples representing YouTube videos with a video
+            obj, total count of keywords, and list of keys included in the
+            transscript.
         """
         results = []
         for _, vid_obj in \
                 self.channels[self.current_channel_name].videos.items():
-            key_inclusion = 0
-            score = 0
+
+            key_inclusion = 0 # if a key is included in a video
+            score = 0 # total time all keys appear in a video
 
             for key in self.keywords:
+                # exactly as entered
                 key_count = vid_obj.transcript.count(key)
+                # title case
+                key_count += vid_obj.transcript.count(key.title())
+                # all lower case
+                key_count += vid_obj.transcript.count(key.lower())
+                # all upper case
+                key_count += vid_obj.transcript.count(key.upper())
+
+                # calculate key_inclusion and score per key, per video
                 if key_count > 0:
                     key_inclusion += 1
                     score += key_count
 
+            # if the word appears at least once in a video
             if score > 0:
                 results.append((vid_obj, score, key_inclusion, \
                     len(self.keywords)))

@@ -34,7 +34,8 @@ class Controller():
             Recursive for error handeling.
             """
             try:
-                self.model = YTSearchModel(channel, keywords.split(", "), self.available_channels)
+                self.model = YTSearchModel(channel, keywords.split(", "),\
+                    self.available_channels)
                 # if it works, return the successful title and keywords
             except:
                 # alert user to error
@@ -64,7 +65,7 @@ class Controller():
         if again == "y":
             # Update list of available channels
             self.update_available_channels()
-            
+
             # get user input
             channel, keywords = \
                 self.view.get_search_input(self.available_channels)
@@ -76,7 +77,8 @@ class Controller():
                 """
                 try:
                     # update model and run search
-                    self.model.update_search(channel, keywords.split(", "), self.available_channels)
+                    self.model.update_search(channel, keywords.split(", "),\
+                        self.available_channels)
 
                 except:
                     # alert user to error
@@ -104,4 +106,3 @@ class Controller():
         # list of channels already downloaded
         if len(os.listdir('./transcript_data')) != 0:
             self.available_channels = next(os.walk('./transcript_data'))[1]
-

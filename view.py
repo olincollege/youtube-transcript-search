@@ -84,7 +84,7 @@ class ViewTerminal(View):
                 # the user would like to download it.
                 if channel not in available_channels:
                     input_val = ""
-                    while input_val != "y" and input_val != "n":
+                    while input_val not in ("y", "n"):
                         input_val = input("\nThis channel will need to be "
                         "locally downloaded and the search will take longer"
                         " than usual, would you like to continue? (y/n): ")
@@ -154,5 +154,6 @@ class ViewTerminal(View):
 
         # channel fails to download
         if error_code == 1:
-            print("\n------------\nERROR DOWNLOADING TRANSCRIPTS. CHANNEL NAME" " MAY BE INCORRECT.\n\n(Hint: make sure the channel is spelled"
+            print("\n------------\nERROR DOWNLOADING TRANSCRIPTS. CHANNEL NAME"
+            " MAY BE INCORRECT.\n\n(Hint: make sure the channel is spelled"
             " correctly and spaces/capital letters are right)\n------------")
