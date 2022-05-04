@@ -1,4 +1,3 @@
-# Usage
 
 ## How to use
 

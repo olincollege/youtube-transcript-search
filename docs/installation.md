@@ -1,4 +1,3 @@
-# Installation
 
 ## Clone the Repo
 Run the following to clone this repo:

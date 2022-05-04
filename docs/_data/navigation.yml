@@ -1,11 +1,11 @@
 main:
-  - title: "Home Page"
+  - title: "Home"
     url: /
   - title: "Installation"
-    url: /installation/
+    url: /installation
   - title: "Usage"
-    url: /usage/
+    url: /usage
   - title: "About"
-    url: /about/
+    url: /about
   - title: "Repo"
-    url: https://github.com/olincollege/youtube-transcript-search/
+    url: https://github.com/olincollege/youtube-transcript-search
