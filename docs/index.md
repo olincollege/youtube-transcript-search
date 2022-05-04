@@ -1,6 +1,6 @@
-# YouTube Channel Transcript Search
+## YouTube Channel Transcript Search
 
-### If a picture’s worth a thousand words, then a YouTube video is worth *a lot*... and now you can search them!
+#### If a picture’s worth a thousand words, then a YouTube video is worth *a lot*... and now you can search them!
 
 Have you ever been frustrated because you can't find a YouTube video you've already seen? You remember the creator, and you remember what they talked about, but you can't remember the title. Maybe it's a news channel where multiple topics are mentioned per video. Maybe it's an educational channel and you know you watched something really helpful, but you can't remember which specific video covered it. Maybe you just like data and you want to rank videos based on how many times a word/words are said.
 
