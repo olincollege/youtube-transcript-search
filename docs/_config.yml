@@ -8,6 +8,8 @@ name: "Kat Canavan, Brooke Moss"
 
 logo: "icon.png"
 
+layout: "single"
+
 # Plugins (previously gems:)
 plugins:
   # - jekyll-paginate
