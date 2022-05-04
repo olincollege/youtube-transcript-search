@@ -1,5 +1,13 @@
 remote_theme: "mmistakes/minimal-mistakes@4.24.0"
 
+minimal_mistakes_skin: "dark"
+
+title: "Youtube Transcript Search"
+
+name: "Kat Canavan, Brooke Moss"
+
+logo: "/docs/icon.png"
+
 # Plugins (previously gems:)
 plugins:
   # - jekyll-paginate
