@@ -30,3 +30,6 @@ defaults:
 # Disables RSS feed icon
 atom_feed:
   hide: true
+
+header:
+  show_overlay_excerpt: false
