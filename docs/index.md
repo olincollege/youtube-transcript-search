@@ -9,3 +9,10 @@ Now you can!
 All you have to do is download this python program, run it in your terminal, and specify the channel and search term(s). 
 
 See a demo below:
+
+
+
+
+## Built With
+- [youtube-channel-transcript-api](https://pypi.org/project/youtube-transcript-api/)
+- [python-dotenv](https://pypi.org/project/python-dotenv/)
