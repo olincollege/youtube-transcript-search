@@ -1,4 +1,6 @@
-## YouTube Channel Transcript Search
+---
+title: YouTube Channel Transcript Search
+---
 
 #### If a picture’s worth a thousand words, then a YouTube video is worth *a lot*... and now you can search them!
 
