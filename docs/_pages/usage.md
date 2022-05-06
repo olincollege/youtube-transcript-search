@@ -1,5 +1,6 @@
 ---
 title: "Usage"
+permalink: /usage/
 ---
 
 ## How to use

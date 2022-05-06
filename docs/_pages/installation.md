@@ -1,5 +1,6 @@
 ---
 title: Installation
+permalink: /installation/
 ---
 
 ## Clone the Repo
