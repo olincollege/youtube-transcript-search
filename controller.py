@@ -26,6 +26,8 @@ class Controller():
         # get user input for search
         channel, keywords = self.view.get_search_input(self.available_channels)
 
+        self.model = None
+
         def run_init_search(channel, keywords):
             """
             Run initial search where model class is instantiated.
@@ -39,7 +41,7 @@ class Controller():
                 self.model = YTSearchModel(channel, keywords.split(", "),\
                     self.available_channels)
                 # if it works, return the successful title and keywords
-            except:
+            except FileNotFoundError:
                 # alert user to error
                 error(1)
                 # ask for new input
@@ -86,7 +88,7 @@ class Controller():
                     self.model.update_search(channel, keywords.split(", "),\
                         self.available_channels)
 
-                except:
+                except FileNotFoundError:
                     # alert user to error
                     error(1)
                     # ask for new input

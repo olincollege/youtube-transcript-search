@@ -185,7 +185,7 @@ class YTSearchModel():
             channel_getter.write_transcripts(
                 f'./transcript_data/{self.current_channel_name}/',\
                     just_text=True)
-        except:
+        except IndexError:
             # delete the directory if it was created
             os.rmdir(f'./transcript_data/{self.current_channel_name}/')
 
