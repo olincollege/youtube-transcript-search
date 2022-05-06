@@ -20,6 +20,7 @@ def test_draw_results():
         (["y"], "y"),
         (["n"], "n"),
         (["hello", "y"], "y")
+        (["qwerty", "n"], "n")
     ]
 )
 
