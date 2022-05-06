@@ -9,8 +9,21 @@ view_test = ViewTerminal()
 def test_get_search_input():
     pass
 
-def test_draw_results():
-    pass
+@pytest.mark.parametrize(
+    # results should be a list of tuples (results is defined in model.py)
+    # output should be the terminal output
+    ["results", "output"],
+    [
+        ("", "------------\n"
+             "\n"
+             "No results found.")
+    ]
+)
+
+def test_draw_results(capsys, results, output):
+    
+    view_test.draw_results(results)
+    assert capsys.readouterr().out.strip() == output
 
 
 
