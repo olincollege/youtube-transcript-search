@@ -4,17 +4,17 @@ minimal_mistakes_skin: "dark"
 title: "Youtube Transcript Search"
 name: "Kat Canavan, Brooke Moss"
 url: "https://olincollege.github.io/youtube-transcript-search"
-logo: "icon.png"
+logo: "/assets/images/icon.png"
 
 markdown: "kramdown"
 
 # Plugins (previously gems:)
 plugins:
-  # - jekyll-paginate
-  # - jekyll-sitemap
-  # - jekyll-gist
-  # - jekyll-feed
-  # - jemoji
+  - jekyll-paginate
+  - jekyll-sitemap
+  - jekyll-gist
+  - jekyll-feed
+  - jemoji
   - jekyll-include-cache
 
 footer:
@@ -33,3 +33,6 @@ atom_feed:
 
 header:
   show_overlay_excerpt: false
+
+include:
+  - _pages

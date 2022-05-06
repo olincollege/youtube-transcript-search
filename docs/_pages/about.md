@@ -1,4 +1,7 @@
-## About
+---
+title: About
+permalink: /about/
+---
 
 Kat Canavan and Brooke Moss are two college students at Olin College of Engineering who are both engaged with *Nerdfighteria*, an  online community hosted by John and Hank Green, primarily hosts of the YouTube channel *[Vlogbrothers](https://www.youtube.com/user/vlogbrothers)*, as well as many other endeavors including the educational YouTube channels *[CrashCourse](https://www.youtube.com/c/crashcourse)* and *[SciShow](https://www.youtube.com/user/scishow?)*. 
 
