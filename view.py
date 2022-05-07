@@ -33,7 +33,7 @@ class ViewTerminal(View):
     View class for terminal.
 
     Attributes:
-        !repeat (_type_): _description_
+        !_repeat (_type_): _description_
     """
 
     def __init__(self):
@@ -41,7 +41,7 @@ class ViewTerminal(View):
         Display interface
         """
         super().__init__()
-        self.repeat = ""
+        self._repeat = ""
         print("\n---YouTube transcript search---")
         print("Search every video on a YouTube channel"
             " for a keyword or words.")
@@ -136,10 +136,9 @@ class ViewTerminal(View):
         Returns:
             user input (y/n) indicating if they want to search again
         """
-        self.repeat = ""
-        while self.repeat not in ["y", "n"]:
-            self.repeat = input("Do you want to search again? (y/n): ")
-        return self.repeat
+        while self._repeat not in ["y", "n"]:
+            self._repeat = input("Do you want to search again? (y/n): ")
+        return self._repeat
 
 def error(error_code=0):
     """

@@ -9,6 +9,11 @@ from view import ViewTerminal, error
 class Controller():
     """
     Control and interface between view and model classes.
+
+    !Attributes:
+        available_channels:
+        view:
+        model:
     """
 
     def __init__(self):
@@ -80,8 +85,8 @@ class Controller():
                 Recursive error handeling
 
                 Args:
-                channel: a string of raw user input representing channel
-                keywords: a string of raw user input representing keywords
+                    channel: a string of raw user input representing channel
+                    keywords: a string of raw user input representing keywords
                 """
                 try:
                     # update model and run search
