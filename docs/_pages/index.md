@@ -13,6 +13,8 @@ All you have to do is download this python program, run it in your terminal, and
 
 See a demo below:
 
+[![YouTube Video Link](https://www.youtube.com/watch?v=orDw_IegEeM/0.jpg)](https://www.youtube.com/watch?v=orDw_IegEeM)
+
 ## Built With
 
 - [youtube-channel-transcript-api](https://pypi.org/project/youtube-transcript-api/)
