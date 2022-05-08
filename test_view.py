@@ -40,8 +40,21 @@ def test_get_search_input(monkeypatch, available_channels, inputs_list, returns)
             "\n"
             "No results found."
         ),
+        (
+            [('Mars Rover STEM Activity for Kids: https://www.youtube.com/watch?v=gnRV1TPTmDE', 54, 1, 1)],
+            # text output in terminal
+            "Results are scored by the total number of times keywords/ phrases"
+            " appear in the transcript. The top scoring videos are:"
+            "\n"
+            "Mars Rover STEM Activity for Kids: https://www.youtube.com/watch?v=gnRV1TPTmDE"
+            "\n"
+            "- Score: 54"
+            "\n"
+            "- Includes 1/1 keywords"
+        ),
     ]
 )
+
 
 def test_draw_results(capsys, results, output):
     """_summary_
