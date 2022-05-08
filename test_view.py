@@ -7,10 +7,29 @@ view_test = ViewTerminal()
 @pytest.mark.parametrize(
     ["available_channels", "inputs_list", "returns"],
     [
+        # test standard user input
         (
             ["Kat Canavan"],                 # List of available channels
             ["Kat Canavan", "robots, nasa"], # Consecutive user inputs
             ("Kat Canavan", "robots, nasa")  # (channel, keywords) returned
+        ),
+        # test for spaces in channel input
+        (
+            ["Kat Canavan"],                  # List of available channels
+            [" Kat Canavan ", "robots, nasa"] # Consecutive user inputs
+            ("Kat Canavan", "robots, nasa")   # (channel, keywords) returned
+        ),
+        # asking for a channel that isn't downloaded
+        (
+            ["Kat Canavan"],                     # List of available channels
+            ["Mark Rober", "y", "robots, nasa"], # Consecutive user inputs
+            ("Mark Rober", "robots, nasa")       # (channel, keywords) returned
+        ),
+        # input wrong channel then input correct channel
+        (
+            ["Kat Canavan"],                     # List of available channels
+            ["Cat Kanavan", "n", "Kat Canavan", "robots, nasa"], # user input
+            ("Kat Canavan", "robots, nasa")    # (channel, keywords) returned
         ),
     ]
 )
@@ -34,14 +53,17 @@ def test_get_search_input(monkeypatch, available_channels, inputs_list, returns)
     # output should be the terminal output
     ["results", "output"],
     [
+        # no results
         (
             [],                 # Should be a list of results tuples
             "------------\n"    # Text outputted to terminal
             "\n"
             "No results found."
         ),
+        # results available
         (
             [('Mars Rover STEM Activity for Kids: https://www.youtube.com/watch?v=gnRV1TPTmDE', 54, 1, 1)],
+
             # text output in terminal
             "Results are scored by the total number of times keywords/ phrases"
             " appear in the transcript. The top scoring videos are:"
