@@ -17,6 +17,10 @@ class View(ABC):
     def get_search_input(self, available_channels):
         """
         Get the channel and keywords from the user.
+
+        Args:
+            available_channels: list of channels that have already been
+                downloaded locally by the user.
         """
 
     def draw_results(self, results):
@@ -33,7 +37,7 @@ class ViewTerminal(View):
     View class for terminal.
 
     Attributes:
-        !repeat (_type_): _description_
+        _repeat: user input (y/n) indicating if they want to search again
     """
 
     def __init__(self):
@@ -41,7 +45,7 @@ class ViewTerminal(View):
         Display interface
         """
         super().__init__()
-        self.repeat = ""
+        self._repeat = ""
         print("\n---YouTube transcript search---")
         print("Search every video on a YouTube channel"
             " for a keyword or words.")
@@ -52,10 +56,16 @@ class ViewTerminal(View):
 
         Args:
             available_channels: list of channels that have already been
-            downloaded locally by the user.
+                downloaded locally by the user.
+
+        Returns:
+            channel name (str): User-input channel name
+            keywords (str): User-input comma separated keywords, with trailing
+                spaces removed
         """
         # set default search message
         search_message = "Searching video transcripts..."
+
         while True:
             # if there are no available channels, prompt user to download one
             if len(available_channels) == 0:
@@ -68,35 +78,36 @@ class ViewTerminal(View):
                 break
 
             # if there are already local channels
-            else:
-                print("\nThe channels that are currently available to search"
-                " are:")
-                for channel in available_channels:
-                    print(" | " + channel)
+            print("\nThe channels that are currently available to search"
+            " are:")
 
-                print("\n(You can also add a new channel by entering the exact"
-                " channel name below)")
+            # print available channels
+            for channel in available_channels:
+                print(" | " + channel)
 
-                channel = input("\nWhich channel would you like to search? ")\
-                    .strip() # remove unwanted spaces
+            print("\n(You can also add a new channel by entering the exact"
+            " channel name below)")
 
-                # if the channel is not already downloaded locally, confirm that
-                # the user would like to download it.
-                if channel not in available_channels:
-                    input_val = ""
-                    while input_val not in ("y", "n"):
-                        input_val = input("\nThis channel will need to be "
-                        "locally downloaded and the search will take longer"
-                        " than usual, would you like to continue? (y/n): ")
+            channel = input("\nWhich channel would you like to search? ")\
+                .strip() # remove unwanted spaces
 
-                    if input_val == "y": # yes
-                    # update search message to reflect increased loading time
-                        search_message = ("Downloading transcript data and"
-                        " searching video transcripts. This may take a few"
-                        " minutes...")
-                        break
-                else: # channel is available
+            # if the channel is not already downloaded locally, confirm that
+            # the user would like to download it.
+            if channel not in available_channels:
+                input_val = ""
+                while input_val not in ("y", "n"):
+                    input_val = input("\nThis channel will need to be "
+                    "locally downloaded and the search will take longer"
+                    " than usual, would you like to continue? (y/n): ")
+
+                if input_val == "y": # yes
+                # update search message to reflect increased loading time
+                    search_message = ("Downloading transcript data and"
+                    " searching video transcripts. This may take a few"
+                    " minutes...")
                     break
+            else: # channel is available
+                break
 
         keywords = ""
         while keywords == "":
@@ -119,6 +130,7 @@ class ViewTerminal(View):
         # indicate if the search returned no results
         if len(results) == 0:
             print("\nNo results found.\n")
+
         # display the top search results
         else:
             print("Results are scored by the total number of times keywords/"
@@ -136,10 +148,9 @@ class ViewTerminal(View):
         Returns:
             user input (y/n) indicating if they want to search again
         """
-        self.repeat = ""
-        while self.repeat != "y" and self.repeat != "n":
-            self.repeat = input("Do you want to search again? (y/n): ")
-        return self.repeat
+        while self._repeat not in ["y", "n"]:
+            self._repeat = input("Do you want to search again? (y/n): ")
+        return self._repeat
 
 def error(error_code=0):
     """

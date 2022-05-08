@@ -1,0 +1,38 @@
+remote_theme: "mmistakes/minimal-mistakes@4.24.0"
+minimal_mistakes_skin: "dark"
+
+title: "Youtube Transcript Search"
+name: "Kat Canavan, Brooke Moss"
+url: "https://olincollege.github.io/youtube-transcript-search"
+logo: "/assets/images/icon.png"
+
+markdown: "kramdown"
+
+# Plugins (previously gems:)
+plugins:
+  - jekyll-paginate
+  - jekyll-sitemap
+  - jekyll-gist
+  - jekyll-feed
+  - jemoji
+  - jekyll-include-cache
+
+footer:
+  links:
+    - label: "GitHub"
+      icon: "fab fa-fw fa-github"
+      url: "https://github.com/olincollege/youtube-transcript-search/"
+      
+defaults:
+  - values:
+      layout: single
+
+# Disables RSS feed icon
+atom_feed:
+  hide: true
+
+header:
+  show_overlay_excerpt: false
+
+include:
+  - _pages

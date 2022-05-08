@@ -1,0 +1,11 @@
+main:
+  - title: "Home"
+    url: /
+  - title: "Installation"
+    url: /installation
+  - title: "Usage"
+    url: /usage
+  - title: "About"
+    url: /about
+  - title: "Repo"
+    url: https://github.com/olincollege/youtube-transcript-search

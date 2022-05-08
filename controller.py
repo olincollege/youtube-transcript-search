@@ -9,6 +9,11 @@ from view import ViewTerminal, error
 class Controller():
     """
     Control and interface between view and model classes.
+
+    Attributes:
+        available_channels: List of channels downloaded to disk
+        view: Instance of ViewTerminal class
+        model: Instance of YTSearchModel class
     """
 
     def __init__(self):
@@ -26,6 +31,8 @@ class Controller():
         # get user input for search
         channel, keywords = self.view.get_search_input(self.available_channels)
 
+        self.model = None
+
         def run_init_search(channel, keywords):
             """
             Run initial search where model class is instantiated.
@@ -39,7 +46,7 @@ class Controller():
                 self.model = YTSearchModel(channel, keywords.split(", "),\
                     self.available_channels)
                 # if it works, return the successful title and keywords
-            except:
+            except FileNotFoundError:
                 # alert user to error
                 error(1)
                 # ask for new input
@@ -78,15 +85,15 @@ class Controller():
                 Recursive error handeling
 
                 Args:
-                channel: a string of raw user input representing channel
-                keywords: a string of raw user input representing keywords
+                    channel: a string of raw user input representing channel
+                    keywords: a string of raw user input representing keywords
                 """
                 try:
                     # update model and run search
                     self.model.update_search(channel, keywords.split(", "),\
                         self.available_channels)
 
-                except:
+                except FileNotFoundError:
                     # alert user to error
                     error(1)
                     # ask for new input
