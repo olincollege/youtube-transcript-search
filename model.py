@@ -136,8 +136,8 @@ class YTSearchModel():
     Attributes:
         _current_channel_name: string representing the channel to be searched
         _keywords: list of strings representing keywords
-        _channels: dictionary of channel objects that have been loaded into
-            program memory.
+        channels (property): dictionary of channel objects that have been loaded
+            into program memory.
         results (property): list of tuples with search results
     """
 
@@ -180,6 +180,13 @@ class YTSearchModel():
         create read-only attribute results
         """
         return self._results
+    
+    @property
+    def channels(self):
+        """
+        create read-only attribute channels
+        """
+        return self._channels
 
     def update_search(self, current_channel_name, keywords, available_channels):
         """
