@@ -9,6 +9,7 @@ from dotenv import load_dotenv
 # load the environment variables
 load_dotenv()
 
+
 class Video():
     """
     Data structure that holds the video details and transcript
@@ -29,7 +30,7 @@ class Video():
         """
         self._title = title
         self._vid_id = vid_id
-        self._transcript = transcript
+        self._transcript = transcript.lower()
 
     @property
     def vid_id(self):
@@ -87,7 +88,7 @@ class Channel():
         # Find list of files in channel folder
         video_files = self.find_files(f"transcript_data/{self._channel}")
         for file in video_files:
-            if os.path.isfile(file): # Only operate on files, not directories
+            if os.path.isfile(file):  # Only operate on files, not directories
                 with open(file, encoding="utf-8") as video_file:
                     # Load data from JSON file
                     video_data = json.load(video_file)
@@ -225,8 +226,8 @@ class YTSearchModel():
 
             # write data to JSONs
             channel_getter.write_transcripts(
-                f'./transcript_data/{self._current_channel_name}/',\
-                    just_text=True)
+                f'./transcript_data/{self._current_channel_name}/',
+                just_text=True)
         except IndexError:
             # delete the directory if it was created
             os.rmdir(f'./transcript_data/{self._current_channel_name}/')
@@ -244,18 +245,12 @@ class YTSearchModel():
         for _, vid_obj in \
                 self._channels[self._current_channel_name].videos.items():
 
-            key_inclusion = 0 # if a key is included in a video
-            score = 0 # total time all keys appear in a video
+            key_inclusion = 0  # if a key is included in a video
+            score = 0  # total time all keys appear in a video
 
             for key in self._keywords:
-                # exactly as entered
-                key_count = vid_obj.transcript.count(key)
-                # title case
-                key_count += vid_obj.transcript.count(key.title())
-                # all lower case
-                key_count += vid_obj.transcript.count(key.lower())
-                # all upper case
-                key_count += vid_obj.transcript.count(key.upper())
+                # convert to lower case
+                key_count = vid_obj.transcript.count(key.lower())
 
                 # calculate key_inclusion and score per key, per video
                 if key_count > 0:
@@ -264,8 +259,8 @@ class YTSearchModel():
 
             # if the word appears at least once in a video
             if score > 0:
-                results.append((vid_obj, score, key_inclusion, \
-                    len(self._keywords)))
+                results.append((vid_obj, score, key_inclusion,
+                                len(self._keywords)))
         # sort list with greatest scores first
         results.sort(key=lambda k: k[1], reverse=True)
         return results
