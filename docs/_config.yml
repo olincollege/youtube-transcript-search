@@ -19,9 +19,15 @@ plugins:
 
 footer:
   links:
-    - label: "GitHub"
+    - label: "Project"
       icon: "fab fa-fw fa-github"
       url: "https://github.com/olincollege/youtube-transcript-search/"
+    - label: "Kat"
+      icon: "fab fa-fw fa-github"
+      url: "https://github.com/thegalaxykat/"
+    - label: "Brooke"
+      icon: "fab fa-fw fa-github"
+      url: "https://github.com/EarlJr53/"
       
 defaults:
   - values:
