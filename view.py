@@ -137,7 +137,7 @@ class ViewTerminal(View):
                 print(f"\n{item[0]} \n- Score: {item[1]} \n"
                     f"- Includes {item[2]}/{item[3]} keywords")
 
-def search_again(self):
+def search_again():
     """
     Ask user if they want to make another search.
 
