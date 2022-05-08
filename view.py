@@ -17,6 +17,10 @@ class View(ABC):
     def get_search_input(self, available_channels):
         """
         Get the channel and keywords from the user.
+
+        Args:
+            available_channels: list of channels that have already been
+                downloaded locally by the user.
         """
 
     def draw_results(self, results):
@@ -33,7 +37,7 @@ class ViewTerminal(View):
     View class for terminal.
 
     Attributes:
-        !_repeat (_type_): _description_
+        _repeat: user input (y/n) indicating if they want to search again
     """
 
     def __init__(self):
@@ -52,10 +56,16 @@ class ViewTerminal(View):
 
         Args:
             available_channels: list of channels that have already been
-            downloaded locally by the user.
+                downloaded locally by the user.
+
+        Returns:
+            channel name (str): User-input channel name
+            keywords (str): User-input comma separated keywords, with trailing
+                spaces removed
         """
         # set default search message
         search_message = "Searching video transcripts..."
+
         while True:
             # if there are no available channels, prompt user to download one
             if len(available_channels) == 0:
@@ -68,9 +78,10 @@ class ViewTerminal(View):
                 break
 
             # if there are already local channels
-
             print("\nThe channels that are currently available to search"
             " are:")
+
+            # print available channels
             for channel in available_channels:
                 print(" | " + channel)
 
@@ -119,6 +130,7 @@ class ViewTerminal(View):
         # indicate if the search returned no results
         if len(results) == 0:
             print("\nNo results found.\n")
+
         # display the top search results
         else:
             print("Results are scored by the total number of times keywords/"

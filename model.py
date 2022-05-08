@@ -5,17 +5,19 @@ import os
 import json
 from youtube_channel_transcript_api import YoutubeChannelTranscripts
 from dotenv import load_dotenv
-# load the API environment
+
+# load the environment variables
 load_dotenv()
 
 class Video():
     """
     Data structure that holds the video details and transcript
 
-    !Attributes:
-        _title:
-        _vid_id:
-        _transcript:
+    Attributes:
+        _title: a string representing the title of the video
+        vid_id (property): a string representing the video id
+        transcript (property): a string representing the full transcript
+            of the video
     """
 
     def __init__(self, title, vid_id, transcript):
@@ -56,9 +58,9 @@ class Channel():
     Data structure that creates and stores video objects for every video on the
     channel.
 
-    !Attributes:
+    Attributes:
         _channel: a string representing the channel name.
-        _videos: a dictionary representing each video on the channel
+        videos (property): a dictionary representing each video on the channel
             callable by title.
     """
 
@@ -82,11 +84,15 @@ class Channel():
         """
         Convert each video file to a video object and store in a dictionary.
         """
-        video_files = self._find_files(f"transcript_data/{self._channel}")
+        # Find list of files in channel folder
+        video_files = self.find_files(f"transcript_data/{self._channel}")
         for file in video_files:
-            if os.path.isfile(file):
+            if os.path.isfile(file): # Only operate on files, not directories
                 with open(file, encoding="utf-8") as video_file:
+                    # Load data from JSON file
                     video_data = json.load(video_file)
+
+                    # If video file is not empty
                     if video_data is not None:
                         # assign video object attributes
                         vid_id = list(video_data.keys())[0]
@@ -96,7 +102,7 @@ class Channel():
                         self._videos[vid_title] = Video(
                             vid_title, vid_id, transcript)
 
-    def _find_files(self, directory):
+    def find_files(self, directory):
         """
         Get all files in a directory tree.
 
@@ -115,7 +121,7 @@ class Channel():
             full_path = os.path.join(directory, entry)
             # If entry is a directory then get the list of files in directory
             if os.path.isdir(full_path):
-                video_files = video_files + self._find_files(full_path)
+                video_files = video_files + self.find_files(full_path)
             else:
                 video_files.append(full_path)
 
@@ -126,12 +132,12 @@ class YTSearchModel():
     """
     Searches YouTube channel transcripts for keywords.
 
-    !Attributes:
+    Attributes:
         _current_channel_name: string representing the channel to be searched
         _keywords: list of strings representing keywords
         _channels: dictionary of channel objects that have been loaded into
             program memory.
-        results: list of tuples with _search results
+        results (property): list of tuples with _search results
     """
 
     def __init__(self, current_channel_name, keywords, available_channels):

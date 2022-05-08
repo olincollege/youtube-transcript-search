@@ -10,10 +10,10 @@ class Controller():
     """
     Control and interface between view and model classes.
 
-    !Attributes:
-        available_channels:
-        view:
-        model:
+    Attributes:
+        available_channels: List of channels downloaded to disk
+        view: Instance of ViewTerminal class
+        model: Instance of YTSearchModel class
     """
 
     def __init__(self):
