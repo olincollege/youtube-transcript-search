@@ -4,30 +4,38 @@ from view import ViewTerminal
 
 view_test = ViewTerminal()
 
+
 @pytest.mark.parametrize(
     ["available_channels", "inputs_list", "returns"],
     [
         (
             ["Kat Canavan"],                 # List of available channels
-            ["Kat Canavan", "robots, nasa"], # Consecutive user inputs
+            ["Kat Canavan", "robots, nasa"],  # Consecutive user inputs
             ("Kat Canavan", "robots, nasa")  # (channel, keywords) returned
         ),
     ]
 )
-
-def test_get_search_input(monkeypatch, available_channels, inputs_list, returns):
-    """_summary_
+def test_get_search_input(monkeypatch, available_channels, inputs_list,
+                          returns):
+    """
+    Tests view.get_search_input(), which collects user input for the channel
+    and keywords to search.
 
     Args:
-        monkeypatch (_type_): _description_
-        available_channels (list): _description_
-        inputs_list (list): _description_
-        returns (tuple of str): _description_
-    """    
+        monkeypatch (monkeypatch): monkeypatch
+        available_channels (list): list of available channels (channels
+            downloaded to disk). Serves as argument for get_search_input method.
+        inputs_list (list): list of consecutive user inputs (strings). Will
+            vary in length based on how long it takes the user to progress
+            through the input tree.
+        returns (tuple of str): expected return of function; should be a tuple
+            with 2 strings, the channel name and keywords.
+    """
 
     inputs = iter(inputs_list)
     monkeypatch.setattr('builtins.input', lambda msg: next(inputs))
     assert view_test.get_search_input(available_channels) == returns
+
 
 @pytest.mark.parametrize(
     # results should be a list of tuples (results is defined in model.py)
@@ -54,20 +62,21 @@ def test_get_search_input(monkeypatch, available_channels, inputs_list, returns)
         ),
     ]
 )
-
-
 def test_draw_results(capsys, results, output):
-    """_summary_
+    """
+    Tests view.draw_results(), which takes a list of results data and displays
+    it to the user.
 
     Args:
-        capsys (_type_): _description_
-        results (list of tuples): _description_
-        output (str): _description_
-    """    
+        capsys (capsys): capsys
+        results (list of tuples): A list of results tuples, passed into the
+            function as an argument to be displayed.
+        output (str): Expected output of the function. Should be a stylized
+            version of the results data.
+    """
 
     view_test.draw_results(results)
     assert capsys.readouterr().out.strip() == output
-
 
 
 @pytest.mark.parametrize(
@@ -79,15 +88,17 @@ def test_draw_results(capsys, results, output):
         (["qwerty", "n"], "n")
     ]
 )
-
 def test_search_again(monkeypatch, inputs_list, returns):
-    """_summary_
+    """
+    Tests the function view.search_again(), which asks the user to decide
+    whether they would like to run another search or end the session.
 
     Args:
-        monkeypatch (_type_): _description_
-        inputs_list (list): _description_
-        returns (str): _description_
-    """    
+        monkeypatch (monkeypatch): monkeypatch
+        inputs_list (list): List of consecutive user inputs. Will vary in length
+            based on how long it takes the user to reach a valid input.
+        returns (str): Expected return, either "y" or "n".
+    """
 
     inputs = iter(inputs_list)
     monkeypatch.setattr('builtins.input', lambda msg: next(inputs))
