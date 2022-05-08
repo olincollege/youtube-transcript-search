@@ -14,23 +14,41 @@ view_test = ViewTerminal()
             ["Kat Canavan", "robots, nasa"],  # Consecutive user inputs
             ("Kat Canavan", "robots, nasa")  # (channel, keywords) returned
         ),
+
         # test for spaces in channel input
         (
             ["Kat Canavan"],                  # List of available channels
             [" Kat Canavan ", "robots, nasa"] # Consecutive user inputs
             ("Kat Canavan", "robots, nasa")   # (channel, keywords) returned
         ),
+
         # asking for a channel that isn't downloaded
         (
             ["Kat Canavan"],                     # List of available channels
             ["Mark Rober", "y", "robots, nasa"], # Consecutive user inputs
             ("Mark Rober", "robots, nasa")       # (channel, keywords) returned
         ),
+
         # input wrong channel then input correct channel
         (
             ["Kat Canavan"],                     # List of available channels
             ["Cat Kanavan", "n", "Kat Canavan", "robots, nasa"], # user input
             ("Kat Canavan", "robots, nasa")    # (channel, keywords) returned
+        ),
+
+        # input 2 wrong channels then input correct channel
+        (
+            ["Kat Canavan"],                     # List of available channels
+            ["Cat Kanavan", "n", "Kate Caravan","n", "Kat Canavan",
+             "robots, nasa"], # user input
+            ("Kat Canavan", "robots, nasa")    # (channel, keywords) returned
+        ),
+
+        # input wrong channel and "download"
+        (
+            ["Kat Canavan"],                      # List of available channels
+            ["tralalalalalalalala", "y", "lala"], # user input
+            ("tralalalalalalalala", "lala")      # (channel, keywords) returned
         ),
     ]
 )
