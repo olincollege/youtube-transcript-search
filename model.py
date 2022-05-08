@@ -269,5 +269,4 @@ class YTSearchModel():
                     len(self._keywords)))
         # sort list with greatest scores first
         results.sort(key=lambda k: k[1], reverse=True)
-        print(results)
         return results
