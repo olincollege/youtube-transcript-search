@@ -180,7 +180,7 @@ class YTSearchModel():
         create read-only attribute results
         """
         return self._results
-    
+
     @property
     def channels(self):
         """
