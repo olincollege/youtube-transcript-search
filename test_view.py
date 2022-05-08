@@ -1,3 +1,6 @@
+"""
+Test functions for view.py
+"""
 
 import pytest
 from view import ViewTerminal, search_again
@@ -89,7 +92,7 @@ def test_get_search_input(monkeypatch, available_channels, inputs_list,
         # results available
         (
             [('Mars Rover STEM Activity for Kids:'
-                'https://www.youtube.com/watch?v=gnRV1TPTmDE', 54, 1, 1)],
+                ' https://www.youtube.com/watch?v=gnRV1TPTmDE', 54, 1, 1)],
 
             ("------------"
             "Results are scored by the total number of times keywords/ phrases"
