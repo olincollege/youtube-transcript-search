@@ -2,23 +2,120 @@
 import pytest
 from model import Video, Channel, YTSearchModel
 
+# Developer's note: the following tests check for search functionality, not
+# downloading files or checking for available channels as results will vary
+# per user and machine.
+
 @pytest.mark.parametrize(
     # parameters = [current_channel_name, keywords, available_channels]
     ["parameters", "channels", "results"],
     [
+        # standard search with single key and single result
         (
             [
                 "Kat Canavan",      # Current channel name
-                "robots, nasa",     # Keywords
+                "nasa",             # Keyword
                 ["Kat Canavan"]     # Available channels (list)
             ],
             {                       # Dictionary of channel objects
                 "Kat Canavan": Channel("Kat Canavan"),# Only using keys for test
             },
-            [                       # List of results tuples
-                (),
+            [ # List of results tuples
+                ("Mars Rover STEM Activity for Kids: https://www.youtube.com/watch?v=gnRV1TPTmDE", 6, 1, 1),
             ]
-        )
+        ),
+
+        # standard search with single key and multiple results
+        (
+            [
+                "Kat Canavan",      # Current channel name
+                "marble",           # Keyword
+                ["Kat Canavan"]     # Available channels (list)
+            ],
+            {                       # Dictionary of channel objects
+                "Kat Canavan": Channel("Kat Canavan"),# Only using keys for test
+            },
+            [ # List of results tuples
+                ("Paper Roller Coaster Tutorial: https://www.youtube.com/watch?v=dFnBrWlyhvE", 16, 1, 1), ("Paper Roller Coaster Marblelympics Parody: https://www.youtube.com/watch?v=0YowfCy-xcQ", 12, 1, 1)
+            ]
+        ),
+
+        # standard search with multiple keys and multiple results
+        (
+            [
+                "Kat Canavan",      # Current channel name
+                "test, robot",      # Keywords
+                ["Kat Canavan"]     # Available channels (list)
+            ],
+            {                       # Dictionary of channel objects
+                "Kat Canavan": Channel("Kat Canavan"),# Only using keys for test
+            },
+            [ # List of results tuples
+                ("Teaching an AI the Difference Between Apples and Bananas: https://www.youtube.com/watch?v=XEjS_FDSsvo", 14, 2, 2), ("Mars Rover STEM Activity for Kids: https://www.youtube.com/watch?v=gnRV1TPTmDE", 8, 2, 2), ("Paper Roller Coaster Tutorial: https://www.youtube.com/watch?v=dFnBrWlyhvE", 6, 1, 2), ("Paper Roller Coaster Marblelympics Parody: https://www.youtube.com/watch?v=0YowfCy-xcQ", 4, 1, 2)
+            ]
+        ),
+
+        # no results
+        (
+            [
+                "Kat Canavan",      # Current channel name
+                "this sentence is not said in any videos.", # Keywords
+                ["Kat Canavan"]     # Available channels (list)
+            ],
+            {                       # Dictionary of channel objects
+                "Kat Canavan": Channel("Kat Canavan"),# Only using keys for test
+            },
+            [ # List of results tuples
+
+            ]
+        ),
+
+        # The next three tests should all have the same results.
+
+        # Lowercase search
+        (
+            [
+                "Kat Canavan",      # Current channel name
+                "banana",           # Keyword
+                ["Kat Canavan"]     # Available channels (list)
+            ],
+            {                       # Dictionary of channel objects
+                "Kat Canavan": Channel("Kat Canavan"),# Only using keys for test
+            },
+            [ # List of results tuples
+                ("Teaching an AI the Difference Between Apples and Bananas: https://www.youtube.com/watch?v=XEjS_FDSsvo", 15, 1, 1)
+            ]
+        ),
+
+        # Title-case search
+        (
+            [
+                "Kat Canavan",      # Current channel name
+                "Banana",           # Keyword
+                ["Kat Canavan"]     # Available channels (list)
+            ],
+            {                       # Dictionary of channel objects
+                "Kat Canavan": Channel("Kat Canavan"),# Only using keys for test
+            },
+            [ # List of results tuples
+                ("Teaching an AI the Difference Between Apples and Bananas: https://www.youtube.com/watch?v=XEjS_FDSsvo", 15, 1, 1)
+            ]
+        ),
+
+        # Uppercase search
+        (
+            [
+                    "Kat Canavan",      # Current channel name
+                    "BANANA",           # Keyword
+                    ["Kat Canavan"]     # Available channels (list)
+                ],
+                {                       # Dictionary of channel objects
+                    "Kat Canavan": Channel("Kat Canavan"),# Only using keys for test
+                },
+                [ # List of results tuples
+                    ("Teaching an AI the Difference Between Apples and Bananas: https://www.youtube.com/watch?v=XEjS_FDSsvo", 15, 1, 1)
+                ]
+        ),
     ]
 )
 
