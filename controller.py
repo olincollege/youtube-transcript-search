@@ -4,7 +4,7 @@ Controller for YouTube transcript search.
 import sys
 import os
 from model import YTSearchModel
-from view import ViewTerminal, error
+from view import ViewTerminal, error, search_again
 
 class Controller():
     """
@@ -69,7 +69,7 @@ class Controller():
         Run additional searches after the initial search.
         """
         # ask user if they want to search again
-        again = self.view.search_again()
+        again = search_again()
         # if user wants to search again run the whole process over again
         if again == "y":
             # Update list of available channels
