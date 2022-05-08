@@ -46,7 +46,7 @@ Results are scored based on the number of occurrences of all keywords within a v
 
 ### the transcript_data directory
 
-When a new channel's transcript data is downloaded, a new directory with the channel name is created under `transcript_data`. To delete a channel from local memory, simply delete the channel's directory. Do not delete `transcript_data` itself. 
+When a new channel's transcript data is downloaded, a new directory with the channel name is created under `transcript_data`. To delete a channel from local memory, simply delete the channel's directory. Do not delete `transcript_data` itself.
 
 ## Testing
 
@@ -62,4 +62,4 @@ For the primary release version of the program, please use `main`.
 
 ### GNU GPL v3
 
-[![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)    
+[![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
