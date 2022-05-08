@@ -1,5 +1,5 @@
 """
-Model for YouTube transcript _search.
+Model for YouTube transcript search.
 """
 import os
 import json
@@ -137,7 +137,7 @@ class YTSearchModel():
         _keywords: list of strings representing keywords
         _channels: dictionary of channel objects that have been loaded into
             program memory.
-        results (property): list of tuples with _search results
+        results (property): list of tuples with search results
     """
 
     def __init__(self, current_channel_name, keywords, available_channels):
@@ -170,7 +170,7 @@ class YTSearchModel():
         self._channels = {self._current_channel_name: Channel(
             self._current_channel_name)}
 
-        # _search
+        # search
         self._results = self._search()
 
     @property
@@ -182,13 +182,13 @@ class YTSearchModel():
 
     def update_search(self, current_channel_name, keywords, available_channels):
         """
-        Update channel name and keywords for new _search and channel. A new
+        Update channel name and keywords for new search and channel. A new
         channel object is created if it hasn't been already.
 
         Args:
             current_channel_name: string representing the channel to be
                 searched.
-            keywords: list of strings representing _search terms.
+            keywords: list of strings representing search terms.
             available_channels: dictionary representing what channels are
                 already locally downloaded.
         """
@@ -238,7 +238,7 @@ class YTSearchModel():
         Returns:
             results: a list of tuples representing YouTube videos with a video
                 obj, total count of keywords, and list of keys included in the
-                transscript.
+                transcript.
         """
         results = []
         for _, vid_obj in \
