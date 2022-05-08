@@ -14,14 +14,14 @@ from model import Video, Channel, YTSearchModel
         (
             [
                 "Kat Canavan",      # Current channel name
-                "nasa",             # Keyword
+                ["nasa"],             # Keyword
                 ["Kat Canavan"]     # Available channels (list)
             ],
             {                       # Dictionary of channel objects
                 "Kat Canavan": Channel("Kat Canavan"),# Only using keys for test
             },
             [ # List of results tuples
-                ("Mars Rover STEM Activity for Kids: https://www.youtube.com/watch?v=gnRV1TPTmDE", 6, 1, 1),
+                ("Mars Rover STEM Activity for Kids: https://www.youtube.com/watch?v=gnRV1TPTmDE", 3, 1, 1),
             ]
         ),
 
@@ -29,14 +29,15 @@ from model import Video, Channel, YTSearchModel
         (
             [
                 "Kat Canavan",      # Current channel name
-                "marble",           # Keyword
+                ["marble"],           # Keyword
                 ["Kat Canavan"]     # Available channels (list)
             ],
             {                       # Dictionary of channel objects
                 "Kat Canavan": Channel("Kat Canavan"),# Only using keys for test
             },
             [ # List of results tuples
-                ("Paper Roller Coaster Tutorial: https://www.youtube.com/watch?v=dFnBrWlyhvE", 16, 1, 1), ("Paper Roller Coaster Marblelympics Parody: https://www.youtube.com/watch?v=0YowfCy-xcQ", 12, 1, 1)
+                ("Paper Roller Coaster Tutorial: https://www.youtube.com/watch?v=dFnBrWlyhvE", 8, 1, 1),
+                ("Paper Roller Coaster Marblelympics Parody: https://www.youtube.com/watch?v=0YowfCy-xcQ", 6, 1, 1)
             ]
         ),
 
@@ -44,14 +45,17 @@ from model import Video, Channel, YTSearchModel
         (
             [
                 "Kat Canavan",      # Current channel name
-                "test, robot",      # Keywords
+                ["test", "robot"],    # Keywords
                 ["Kat Canavan"]     # Available channels (list)
             ],
             {                       # Dictionary of channel objects
                 "Kat Canavan": Channel("Kat Canavan"),# Only using keys for test
             },
             [ # List of results tuples
-                ("Teaching an AI the Difference Between Apples and Bananas: https://www.youtube.com/watch?v=XEjS_FDSsvo", 14, 2, 2), ("Mars Rover STEM Activity for Kids: https://www.youtube.com/watch?v=gnRV1TPTmDE", 8, 2, 2), ("Paper Roller Coaster Tutorial: https://www.youtube.com/watch?v=dFnBrWlyhvE", 6, 1, 2), ("Paper Roller Coaster Marblelympics Parody: https://www.youtube.com/watch?v=0YowfCy-xcQ", 4, 1, 2)
+                ("Teaching an AI the Difference Between Apples and Bananas: https://www.youtube.com/watch?v=XEjS_FDSsvo", 7, 2, 2),
+                ("Mars Rover STEM Activity for Kids: https://www.youtube.com/watch?v=gnRV1TPTmDE", 4, 2, 2),
+                ("Paper Roller Coaster Tutorial: https://www.youtube.com/watch?v=dFnBrWlyhvE", 3, 1, 2),
+                ("Paper Roller Coaster Marblelympics Parody: https://www.youtube.com/watch?v=0YowfCy-xcQ", 2, 1, 2)
             ]
         ),
 
@@ -59,7 +63,7 @@ from model import Video, Channel, YTSearchModel
         (
             [
                 "Kat Canavan",      # Current channel name
-                "this sentence is not said in any videos.", # Keywords
+                ["this sentence is not said in any videos."], # Keywords
                 ["Kat Canavan"]     # Available channels (list)
             ],
             {                       # Dictionary of channel objects
@@ -76,7 +80,7 @@ from model import Video, Channel, YTSearchModel
         (
             [
                 "Kat Canavan",      # Current channel name
-                "banana",           # Keyword
+                ["banana"],           # Keyword
                 ["Kat Canavan"]     # Available channels (list)
             ],
             {                       # Dictionary of channel objects
@@ -91,7 +95,22 @@ from model import Video, Channel, YTSearchModel
         (
             [
                 "Kat Canavan",      # Current channel name
-                "Banana",           # Keyword
+                ["Banana"],           # Keyword
+                ["Kat Canavan"]     # Available channels (list)
+            ],
+            {                       # Dictionary of channel objects
+                "Kat Canavan": Channel("Kat Canavan"),# Only using keys for test
+            },
+            [ # List of results tuples
+                ('Teaching an AI the Difference Between Apples and Bananas: https://www.youtube.com/watch?v=XEjS_FDSsvo', 15, 1, 1)
+            ]
+        ),
+
+        # Uppercase search
+        (
+            [
+                "Kat Canavan",      # Current channel name
+                ["BANANA"],           # Keyword
                 ["Kat Canavan"]     # Available channels (list)
             ],
             {                       # Dictionary of channel objects
@@ -100,21 +119,6 @@ from model import Video, Channel, YTSearchModel
             [ # List of results tuples
                 ("Teaching an AI the Difference Between Apples and Bananas: https://www.youtube.com/watch?v=XEjS_FDSsvo", 15, 1, 1)
             ]
-        ),
-
-        # Uppercase search
-        (
-            [
-                    "Kat Canavan",      # Current channel name
-                    "BANANA",           # Keyword
-                    ["Kat Canavan"]     # Available channels (list)
-                ],
-                {                       # Dictionary of channel objects
-                    "Kat Canavan": Channel("Kat Canavan"),# Only using keys for test
-                },
-                [ # List of results tuples
-                    ("Teaching an AI the Difference Between Apples and Bananas: https://www.youtube.com/watch?v=XEjS_FDSsvo", 15, 1, 1)
-                ]
         ),
     ]
 )
@@ -138,15 +142,10 @@ def test_YTSearchModel_init(parameters, channels, results):
 
     model_test = YTSearchModel(parameters[0], parameters[1], parameters[2])
 
-    assert model_test.channels.keys() == channels.keys()
-    assert model_test.results == results
+    assert model_test._channels.keys() == channels.keys()
 
-# def test_update_search(parameters, channels, results):
-    # model_test = YTSearchModel(parameters[0], parameters[1], parameters[2])
+    print(len(model_test.results))
+    print(len(results))
 
-    # assert model_test.
-    # pass
-
-# def test_search():
-#     pass
-
+    for i in range(len(results)):
+        assert model_test.results[i][1:] == results[i][1:]

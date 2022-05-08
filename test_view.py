@@ -1,6 +1,6 @@
 
 import pytest
-from view import ViewTerminal
+from view import ViewTerminal, search_again
 
 view_test = ViewTerminal()
 
@@ -18,7 +18,7 @@ view_test = ViewTerminal()
         # test for spaces in channel input
         (
             ["Kat Canavan"],                  # List of available channels
-            [" Kat Canavan ", "robots, nasa"] # Consecutive user inputs
+            [" Kat Canavan ", "robots, nasa"], # Consecutive user inputs
             ("Kat Canavan", "robots, nasa")   # (channel, keywords) returned
         ),
 
@@ -91,14 +91,18 @@ def test_get_search_input(monkeypatch, available_channels, inputs_list,
             [('Mars Rover STEM Activity for Kids: https://www.youtube.com/watch?v=gnRV1TPTmDE', 54, 1, 1)],
 
             # text output in terminal
-            "Results are scored by the total number of times keywords/ phrases"
-            " appear in the transcript. The top scoring videos are:"
-            "\n"
-            "Mars Rover STEM Activity for Kids: https://www.youtube.com/watch?v=gnRV1TPTmDE"
-            "\n"
-            "- Score: 54"
-            "\n"
-            "- Includes 1/1 keywords"
+            # "------------\n"
+            # "Results are scored by the total number of times keywords/ phrases"
+            # " appear in the transcript. The top scoring videos are:"
+            # "\n"
+            # "\n"
+            # "Mars Rover STEM Activity for Kids: https://www.youtube.com/watch?v=gnRV1TPTmDE "
+            # "\n"
+            # "- Score: 54 "
+            # "\n"
+            # "- Includes 1/1 keywords"
+
+            '------------\n\nResults are scored by the total number of times keywords/ phrases appear in\n the transcript. The top scoring videos are: \n\n \n\n Mars Rover STEM Activity for Kids:\n https://www.youtube.com/watch?v=gnRV1TPTmDE \n\n - Score: 54\n\n - Includes 1/1 keywords'
         ),
     ]
 )
@@ -124,7 +128,7 @@ def test_draw_results(capsys, results, output):
     [
         (["y"], "y"),
         (["n"], "n"),
-        (["hello", "y"], "y")
+        (["hello", "y"], "y"),
         (["qwerty", "n"], "n")
     ]
 )
@@ -142,4 +146,4 @@ def test_search_again(monkeypatch, inputs_list, returns):
 
     inputs = iter(inputs_list)
     monkeypatch.setattr('builtins.input', lambda msg: next(inputs))
-    assert view_test.search_again() == returns
+    assert search_again() == returns

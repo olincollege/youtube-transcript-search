@@ -29,7 +29,7 @@ class Video():
         """
         self._title = title
         self._vid_id = vid_id
-        self._transcript = transcript
+        self._transcript = transcript.lower()
 
     @property
     def vid_id(self):
@@ -248,14 +248,8 @@ class YTSearchModel():
             score = 0 # total time all keys appear in a video
 
             for key in self._keywords:
-                # exactly as entered
-                key_count = vid_obj.transcript.count(key)
-                # title case
-                key_count += vid_obj.transcript.count(key.title())
                 # all lower case
-                key_count += vid_obj.transcript.count(key.lower())
-                # all upper case
-                key_count += vid_obj.transcript.count(key.upper())
+                key_count = vid_obj.transcript.count(key.lower())
 
                 # calculate key_inclusion and score per key, per video
                 if key_count > 0:
@@ -268,4 +262,5 @@ class YTSearchModel():
                     len(self._keywords)))
         # sort list with greatest scores first
         results.sort(key=lambda k: k[1], reverse=True)
+        print(results)
         return results
