@@ -88,21 +88,15 @@ def test_get_search_input(monkeypatch, available_channels, inputs_list,
         ),
         # results available
         (
-            [('Mars Rover STEM Activity for Kids: https://www.youtube.com/watch?v=gnRV1TPTmDE', 54, 1, 1)],
+            [('Mars Rover STEM Activity for Kids:'
+                'https://www.youtube.com/watch?v=gnRV1TPTmDE', 54, 1, 1)],
 
-            # text output in terminal
-            # "------------\n"
-            # "Results are scored by the total number of times keywords/ phrases"
-            # " appear in the transcript. The top scoring videos are:"
-            # "\n"
-            # "\n"
-            # "Mars Rover STEM Activity for Kids: https://www.youtube.com/watch?v=gnRV1TPTmDE "
-            # "\n"
-            # "- Score: 54 "
-            # "\n"
-            # "- Includes 1/1 keywords"
-
-            '------------\n\nResults are scored by the total number of times keywords/ phrases appear in\n the transcript. The top scoring videos are: \n\n \n\n Mars Rover STEM Activity for Kids:\n https://www.youtube.com/watch?v=gnRV1TPTmDE \n\n - Score: 54\n\n - Includes 1/1 keywords'
+            ("------------"
+            "Results are scored by the total number of times keywords/ phrases"
+            " appear in the transcript. The top scoring videos are: Mars Rover"
+            " STEM Activity for Kids:"
+            " https://www.youtube.com/watch?v=gnRV1TPTmDE"
+            " - Score: 54 - Includes 1/1 keywords")
         ),
     ]
 )
@@ -120,7 +114,8 @@ def test_draw_results(capsys, results, output):
     """
 
     view_test.draw_results(results)
-    assert capsys.readouterr().out.strip() == output
+    assert capsys.readouterr().out.strip().replace('\n', '') == output.replace\
+        ('\n', '')
 
 
 @pytest.mark.parametrize(
